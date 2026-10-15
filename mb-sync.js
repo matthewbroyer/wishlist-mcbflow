@@ -1,4 +1,4 @@
-/* mb-sync.js 1.0.1 · optional account sync for mcbflow.com apps (shared file: copy it unchanged into each app).
+/* mb-sync.js 1.0.2 · optional account sync for mcbflow.com apps (shared file: copy it unchanged into each app).
    Local-first: the app always saves to the device first; this file mirrors its records to the account
    database when the person is signed in. Signed out, it loads nothing extra and contacts no server.
 
@@ -23,8 +23,9 @@ const SUPABASE_KEY = 'sb_publishable_i786YYip9yEZ_KC0CwOcZw_q7yOIoyM';
 const SESSION_KEY  = 'sb-rxvcjdwmvxhwbdwncfhj-auth-token';   // where supabase-js keeps the sign-in on this site
 const ACCOUNT_URL  = 'https://mcbflow.com/account.html';
 const LIB_SRC      = 'vendor/supabase.js';
-const VERSION      = '1.0.1';
+const VERSION      = '1.0.2';
 const PAGE = 1000, BATCH = 500, PUSH_DELAY = 1200, RETRY_MS = 30000;
+const MAX_BYTES = 230000, BATCH_BYTES = 1000000;   // one record must fit the database's 256 KB limit; keep each upload request small
 const OVERLAP_MS = 120000;   // re-read the last 2 minutes on each pull, so a slow save that lands late is never skipped
 
 /* ---------- small helpers ---------- */
@@ -126,12 +127,13 @@ async function busy(btn, fn) {
 /* ---------- engine ---------- */
 function create(o) {
   const APP = o.app, META_KEY = APP + '.sync';
-  // meta: { uid, email, cursor (server time of last pull), h: {key: hash}, t: {key: edited ms}, dirty: {key: 1}, last: ms }
+  // meta: { uid, email, cursor (server time of last pull), h: {key: hash}, t: {key: edited ms}, dirty: {key: 1}, big: {key: 1}, last: ms }
+  // toRecords() may throw to pause syncing (e.g. while demo data is loaded): nothing is sent or applied until it stops throwing.
   let meta = blankMeta();
   try { const m = JSON.parse(lsGet(META_KEY) || 'null'); if (m && typeof m === 'object') meta = Object.assign(blankMeta(), m); } catch (e) {}
   let sb = null, user = null, state = 'off', errorText = '', pushTimer = 0, retryTimer = 0, pulling = null, pushing = null, linking = false;
 
-  function blankMeta() { return { v: 1, uid: null, email: '', cursor: null, h: {}, t: {}, dirty: {}, last: 0 }; }
+  function blankMeta() { return { v: 1, uid: null, email: '', cursor: null, h: {}, t: {}, dirty: {}, big: {}, last: 0 }; }
   function saveMeta() { lsSet(META_KEY, JSON.stringify(meta)); }
   function setState(s, err) {
     state = s; errorText = err || '';
@@ -141,7 +143,7 @@ function create(o) {
   }
   function status() {
     return { signedIn: !!user, email: user ? user.email : '', state, error: errorText, lastSync: meta.last,
-             pending: Object.keys(meta.dirty).length, label: label() };
+             pending: Object.keys(meta.dirty).length, tooBig: Object.keys(meta.big || {}).length, label: label() };
   }
   function label() {
     if (!user) return 'Sign in to sync';
@@ -149,7 +151,8 @@ function create(o) {
     if (state === 'offline') return 'Offline · will sync later';
     if (state === 'error') return 'Sync problem';
     if (Object.keys(meta.dirty).length) return 'Waiting to sync';
-    return 'Synced ' + ago(meta.last);
+    const big = Object.keys(meta.big || {}).length;
+    return 'Synced ' + ago(meta.last) + (big ? ` · ${big} too large` : '');
   }
 
   /* -- local change tracking: compare the app's records with what was last synced -- */
@@ -187,9 +190,24 @@ function create(o) {
       if (!keys.length) return;
       if (!navigator.onLine) { setState('offline'); return; }
       setState('syncing');
-      let recs = {}; try { recs = o.toRecords() || {}; } catch (e) {}
-      for (let i = 0; i < keys.length; i += BATCH) {
-        const part = keys.slice(i, i + BATCH);
+      let recs; try { recs = o.toRecords() || {}; } catch (e) { setState('idle'); return; }   // paused by the app: send nothing
+      if (!meta.big) meta.big = {};
+      // A record too large for the database stays on this device (never sent as a deletion); it's retried when it changes.
+      const sendable = keys.filter(k => {
+        if (!(k in recs)) { delete meta.big[k]; return true; }
+        let n = 0; try { n = new Blob([JSON.stringify(recs[k])]).size; } catch (e) {}
+        if (n > MAX_BYTES) { meta.big[k] = 1; delete meta.dirty[k]; return false; }
+        delete meta.big[k]; return true;
+      });
+      saveMeta();
+      const batches = []; let cur = [], bytes = 0;
+      for (const k of sendable) {
+        let n = 200; try { if (k in recs) n += JSON.stringify(recs[k]).length; } catch (e) {}
+        if (cur.length && (cur.length >= BATCH || bytes + n > BATCH_BYTES)) { batches.push(cur); cur = []; bytes = 0; }
+        cur.push(k); bytes += n;
+      }
+      if (cur.length) batches.push(cur);
+      for (const part of batches) {
         const rows = part.map(k => {
           const gone = !(k in recs);
           return { user_id: user.id, app: APP, key: k, data: gone ? null : recs[k], deleted: gone,
@@ -229,11 +247,13 @@ function create(o) {
   function applyRows(rows, opts) {
     opts = opts || {};
     track(opts.startup);   // capture any local edit first, so it can win if it's newer
-    let recs = {}; try { recs = Object.assign({}, o.toRecords() || {}); } catch (e) {}
+    let recs; try { recs = Object.assign({}, o.toRecords() || {}); } catch (e) { return 0; }   // paused by the app: apply later (cursor not moved)
+    if (!meta.big) meta.big = {};
     let n = 0;
     for (const r of rows) {
       const rt = Date.parse(r.updated_at) || 0;
-      if (!opts.force && meta.dirty[r.key] && (meta.t[r.key] || 0) > rt) continue;   // ours is newer; it will be pushed
+      if (!opts.force && (meta.dirty[r.key] || meta.big[r.key]) && (meta.t[r.key] || 0) > rt) continue;   // ours is newer; it will be pushed (or is too large to send)
+      delete meta.big[r.key];
       if (r.deleted) {
         if (r.key in recs) { delete recs[r.key]; n++; }
         delete meta.h[r.key];
@@ -289,8 +309,9 @@ function create(o) {
       else if (cloud.length) choice = 'cloud';
       else choice = 'device';
       if (choice === 'cancel') { linking = false; await signOut(true); return; }
+      let recs = null; try { recs = o.toRecords() || {}; } catch (e) {}
+      if (!recs) { recs = {}; if (choice === 'device' && cloud.length) choice = 'cloud'; }   // app paused: never let an empty device wipe the account
       meta = fresh;
-      let recs = {}; try { recs = o.toRecords() || {}; } catch (e) {}
       const now = Date.now();
       if (choice === 'device') {
         for (const k of Object.keys(recs)) { meta.h[k] = hash(recs[k]); meta.t[k] = now; meta.dirty[k] = 1; }
@@ -394,6 +415,7 @@ function create(o) {
       <p>Signed in as <b>${esc(s.email)}</b>.</p>
       <div class="mbs-stat"><span class="mbs-dot ${dot}"></span><span>${esc(s.label)}${s.pending ? ` · ${s.pending} change${s.pending === 1 ? '' : 's'} waiting` : ''}</span></div>
       ${s.error ? `<p class="mbs-msg err">${esc(s.error)}</p>` : ''}
+      ${s.tooBig ? `<p class="mbs-msg err">${s.tooBig === 1 ? 'One item is' : s.tooBig + ' items are'} too large to sync (over about 230 KB, usually from pasted images), so ${s.tooBig === 1 ? 'it stays' : 'they stay'} on this device only. ${s.tooBig === 1 ? 'It syncs' : 'They sync'} again once smaller.</p>` : ''}
       <p>Changes save on this device first and sync when you’re online. Photos and other files aren’t synced.</p>
       <div class="mbs-row"><button class="mbs-b" type="button" id="mbsOut">Sign out</button><button class="mbs-b" type="button" id="mbsNow">Sync now</button><button class="mbs-b pri" type="button" id="mbsClose">Done</button></div>
       <p class="mbs-links">Manage your account, export or delete synced data: <a href="${ACCOUNT_URL}" target="_blank" rel="noopener">mcbflow.com account page</a>. Signing out keeps this device’s data.</p>`);
