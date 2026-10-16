@@ -1,6 +1,6 @@
 # Attributions
 
-mbwishlist.online is a single self-contained HTML file with no build step,
+wishlist.mcbflow.com is a single self-contained HTML file with no build step,
 no bundled third-party JavaScript libraries, and no icon library or stock
 image assets. It loads nothing from any third-party server.
 

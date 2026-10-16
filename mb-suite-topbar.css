@@ -1,17 +1,34 @@
 /* =====================================================================
-   MB SUITE v3.2.1 · STANDARD TOP BAR  (2026-10-14)  · mb-suite-topbar v3.2.1
-   Load LAST, after every other stylesheet / <style> block in the app.
-   One look for the page bar in every app, on every screen size.
+   mb-suite-topbar.css v3.3.0  ·  2026-10-16  ·  SHARED FILE: copy into every app UNCHANGED, load LAST
+   (after every other stylesheet / <style> block). Apps whose CSP has no style-src 'self' inline it as the
+   last <style> block, byte-for-byte. If you edit it, raise the version on this line and in
+   "SHARED FILES/SHARED-FILES-VERSIONS.md", then copy it into every app.
+
+   v3.3.0 (2026-10-16) adds, on top of the v3.2.2 top bar:
+     · every bar control is one height: the theme switch fills the bar height (36px desktop, 42px phones;
+       it was a 28px pill next to 36/42px buttons), the account button is a normal .tb
+     · .tb-acct     account button (mb-sync.js 1.1 sync.button) — "Sign in" or avatar + sync dot
+     · wordmark     <b>Money<i class="tld"><span class="sep" aria-hidden="true">∙</span>mcbflow.com</i></b>
+                    desktop "Money ∙ mcbflow.com", phones "Money"
+     · .mbw-*       welcome / first-run screen (one look in every app)
+     · .mb-dm-*     Data menu items with a one-line description, section labels, status, Clear all data
+     · .mb-set-*    Settings page (Appearance → Account & sync → app settings → Backup & data → Install → About)
+     · .mb-foot     one-line page footer
+     · .mb-greet    "Good morning, Matthew" line on the start view (text from mb-sync.js sync.greet)
+     · universal    textarea grows vertically only · .mb-info read-only chips (never look like buttons) · .mb-pair 50/50 action pairs
+     Standard nav icons (Home, Settings gear, Help, More): "SHARED FILES/suite-nav-icons.html"
+   Reference markup for all of it: "SHARED FILES/suite-shell-demo.html".
 
    Order inside .page-bar .actions (leave out what the app doesn't have):
-     [search] · [extra icon tools, e.g. Undo] · [backup chip, desktop only] · Data · theme switch · [primary] · [More ≡]
+     [search] · [extra icon tools, e.g. Undo] · [backup chip, desktop only] · Data · theme switch · account · [primary] · [More ≡]
 
    Classes (add to the app's EXISTING elements; keep their ids, data-* and handlers):
-     .tb            every button in the bar (search, Data, tools, More)
+     .tb            every button in the bar (search, Data, tools, account, More)
      .tb-lbl        the text inside a .tb  → hidden on phones (icon only)
      .tb-chev       Data's chevron           → hidden on phones
      .tb-dot        the "no recent backup" dot inside Data (app JS still toggles [hidden])
      .tb-primary    the view's main action (accent fill). Must contain an icon + .tb-lbl and an aria-label.
+     .tb-acct       account button: <button class="tb tb-acct" type="button" id="acctBtn"></button>, then sync.button(el)
      .tb-opt        optional tool that may drop out on very narrow phones (≤380px)
      .themesw       theme switch, standard markup only:
        <button class="themesw" role="switch" aria-checked="false" aria-label="Dark mode">
@@ -60,18 +77,30 @@
 .page-bar .actions .tb.tb-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink,#fff);font-weight:600}
 .page-bar .actions .tb.tb-primary:hover{background:var(--accent-hover,var(--accent));border-color:var(--accent-hover,var(--accent));color:var(--accent-ink,#fff)}
 
-/* ---- standard theme switch ---- */
+/* ---- standard theme switch: same height as every other bar control ----
+   A segmented switch (sun | moon) exactly as tall as the buttons beside it: 36px desktop/tablet, 42px phones.
+   The accent block sits on the active side. Phones ≤380px: a 42px square showing the current mode. */
 .page-bar .themesw{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;flex:none;
-  height:var(--tb-h);min-height:var(--tb-h);width:auto;min-width:0;padding:0 2px;margin:0;border:0;border-radius:var(--r-sm,6px);background:none;box-shadow:none;cursor:pointer}
-.page-bar .themesw .tk{position:relative;display:inline-flex;align-items:center;justify-content:space-between;box-sizing:border-box;
-  width:52px;height:28px;padding:0 6px;border-radius:var(--r-sm,6px);background:var(--surface-2,#eef0f3);border:1px solid var(--border-strong,#cfd4db);color:var(--muted,#6b7280)}
-.page-bar .themesw .tk svg{position:relative;z-index:1;width:14px;height:14px;flex:none;display:block}
-.page-bar .themesw .th{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:4px;background:var(--accent);box-shadow:none;transform:none;transition:transform .12s ease}
-.page-bar .themesw[aria-checked="true"] .th{transform:translateX(24px)}
+  height:var(--tb-h);min-height:var(--tb-h);width:auto;min-width:0;padding:0;margin:0;border:0;border-radius:var(--r-sm,6px);background:none;box-shadow:none;cursor:pointer}
+.page-bar .themesw .tk{position:relative;display:inline-flex;align-items:center;justify-content:space-around;box-sizing:border-box;
+  width:64px;height:var(--tb-h);padding:0 3px;border-radius:var(--r-sm,6px);background:var(--surface,#fff);border:1px solid var(--border-strong,#cfd4db);color:var(--muted,#6b7280);
+  transition:border-color .12s ease,background-color .12s ease}
+.page-bar .themesw .tk svg{position:relative;z-index:1;width:16px;height:16px;flex:none;display:block;transition:color .12s ease}
+.page-bar .themesw .th{position:absolute;top:3px;left:3px;width:calc((100% - 6px) / 2);height:calc(100% - 6px);border-radius:calc(var(--r-sm,6px) - 2px);background:var(--accent);box-shadow:none;transform:none;transition:transform .12s ease}
+.page-bar .themesw[aria-checked="true"] .th{transform:translateX(100%)}
 .page-bar .themesw[aria-checked="false"] .i-sun,.page-bar .themesw[aria-checked="true"] .i-moon{color:var(--accent-ink,#fff)}
-.page-bar .themesw:hover .tk{border-color:var(--accent-line,var(--accent))}
+.page-bar .themesw:hover .tk{border-color:var(--accent-line,var(--accent));background:var(--surface-2,#f3f4f6)}
 .page-bar .themesw:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .page-bar .themesw > :not(.tk){display:none}   /* no text labels beside the switch */
+@media (max-width:767px){ .page-bar .themesw .tk{width:62px} }
+/* very narrow phones (≤380px): the switch folds to a square showing the current mode, so five controls still fit */
+@media (max-width:380px){
+  .page-bar .themesw .tk{width:var(--tb-h);padding:0;justify-content:center}
+  .page-bar .themesw .th{display:none}
+  .page-bar .themesw .tk svg{width:18px;height:18px}
+  .page-bar .themesw[aria-checked="false"] .i-moon,.page-bar .themesw[aria-checked="true"] .i-sun{display:none}
+  .page-bar .themesw[aria-checked="false"] .i-sun,.page-bar .themesw[aria-checked="true"] .i-moon{color:var(--ink-2,#3a414a)}
+}
 
 /* backup chip: desktop only, same height as the buttons */
 .page-bar .actions .tb-chip{min-height:var(--tb-h);box-sizing:border-box}
@@ -91,10 +120,10 @@
   .page-bar .phone-brand{flex:0 1 auto;min-width:0}
   .page-bar .actions .tb-lbl,.page-bar .actions .tb-chev,.page-bar .actions .tb kbd{display:none}
   .page-bar .actions .tb{width:var(--tb-h);padding:0}
-  .page-bar .themesw .tk{width:50px}
-  .page-bar .themesw[aria-checked="true"] .th{transform:translateX(22px)}
 }
 @media (max-width:380px){
+  :root{--tb-gap:3px}
+  .page-bar{padding-left:10px;padding-right:10px}
   .page-bar .actions .tb-opt{display:none}
   .page-bar .brand b{font-size:14px}
 }
@@ -129,7 +158,7 @@
 @media (max-width:1023px){ .page-bar .actions .tb.tb-search:has(input){width:180px;padding:0 6px 0 10px;justify-content:flex-start;cursor:text} }
 
 /* ---- Backup chip: neutral with a status square; amber when a backup is due ----
-   App JS toggles .warn on the chip (never backed up / backup overdue). mbauto's legacy .stale works too. */
+   App JS toggles .warn on the chip (never backed up / backup overdue). the legacy .stale class works too. */
 .page-bar .actions .tb-chip{display:inline-flex;align-items:center;gap:7px;height:var(--tb-h);min-height:var(--tb-h);padding:0 10px;margin:0;
   border:1px solid var(--border,#dfe2e7);border-radius:var(--r-sm,6px);background:var(--surface,#fff);color:var(--muted,#6b7280);
   font:500 12.5px/1 var(--font,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);white-space:nowrap;box-shadow:none;cursor:pointer}
@@ -150,5 +179,254 @@ a.brand .bt > span{font-size:11px;font-weight:400;line-height:1.15;color:var(--m
 @media (min-width:1024px){ .mb-side > a.brand{margin:0 8px 12px;padding:6px 8px} }
 .page-bar .page-title{font-size:18px;font-weight:650;letter-spacing:-.01em;line-height:1.2;margin:0}
 
-/* phones: show just the app name; the .mcbflow.com ending is hidden to keep the header on one line */
+/* ---- Wordmark (v3.3): "Money ∙ mcbflow.com" on desktop, just "Money" on phones ----
+   <b>Money<i class="tld"><span class="sep" aria-hidden="true">∙</span>mcbflow.com</i></b>   (short name in Title Case) */
+a.brand .bt b{white-space:nowrap}
+a.brand .tld{font-style:normal;font-weight:400;font-size:1em;color:var(--accent);letter-spacing:0}
+a.brand .tld .sep{display:inline-block;margin:0 .28em;color:var(--accent);font-weight:700}
 @media (max-width:600px){ .phone-brand .tld{display:none} }
+@media (min-width:1024px){ .mb-side > a.brand .bt{min-width:0} .mb-side > a.brand .bt b{overflow:hidden;text-overflow:clip} }
+
+
+/* =====================================================================
+   v3.3 · WELCOME / FIRST-RUN SCREEN  (.mbw)  — one look in every app
+   Desktop: a 540px card over the dimmed app. Phones (≤600px): full screen, primary button full width at the bottom.
+   <div class="mbw" role="dialog" aria-modal="true" aria-labelledby="mbwTitle">
+     <div class="mbw-card">
+       <header class="mbw-head">
+         <span class="mbw-step">Step 1 of 3</span>
+         <span class="mbw-head-a"><button class="mbw-link" type="button">Sign in</button><button class="mbw-link" type="button">Skip</button></span>
+         <div class="mbw-prog" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+       </header>
+       <div class="mbw-body"> …step content… </div>
+       <footer class="mbw-foot"><button class="mbw-btn">Back</button><button class="mbw-btn pri">Next</button></footer>
+     </div>
+   </div>
+   ===================================================================== */
+.mbw{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px 16px;
+  background:rgba(10,12,16,.48);font-family:var(--font,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);color:var(--ink,#1b1f24)}
+.mbw[hidden]{display:none}
+.mbw-card{box-sizing:border-box;display:flex;flex-direction:column;width:min(540px,100%);max-height:min(760px,calc(100vh - 48px));max-height:min(760px,calc(100dvh - 48px));
+  background:var(--surface,#fff);border:1px solid var(--border,#dfe2e7);border-radius:var(--r-lg,8px);box-shadow:0 24px 60px rgba(10,12,16,.28);overflow:hidden}
+.mbw-head{flex:none;display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px 12px;padding:14px 20px 12px;border-bottom:1px solid var(--border,#dfe2e7)}
+.mbw-step{font-size:12px;font-weight:600;color:var(--muted,#6b7280);font-variant-numeric:tabular-nums}
+.mbw-head-a{display:flex;align-items:center;gap:2px;margin-right:-8px}
+.mbw-link{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 8px;border:0;border-radius:var(--r-sm,6px);background:none;color:var(--ink-2,#3a414a);
+  font-family:inherit;font-size:13px;font-weight:500;line-height:1;cursor:pointer}
+.mbw-link:hover{background:var(--surface-2,#f3f4f6);color:var(--ink,#1b1f24)}
+.mbw-link:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.mbw-link.acc{color:var(--accent);font-weight:600}
+.mbw-signed{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 8px;font-size:12.5px;color:var(--muted,#6b7280)}
+.mbw-signed::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good,#16a34a)}
+.mbw-prog{grid-column:1/-1;display:flex;gap:4px}
+.mbw-prog i{flex:1;height:4px;border-radius:2px;background:var(--surface-3,var(--border,#e5e7eb));transition:background-color .2s ease}
+.mbw-prog i.on{background:var(--accent)}
+.mbw-body{flex:1;min-height:0;overflow-y:auto;padding:22px 20px 20px;font-size:14px;line-height:1.5}
+.mbw-body.center{display:flex;flex-direction:column;justify-content:center}
+.mbw-body h2{margin:0;font-size:20px;font-weight:700;letter-spacing:-.01em;line-height:1.25;color:var(--ink,#1b1f24)}
+.mbw-body h2 + p,.mbw-lead{margin:6px 0 0;color:var(--ink-2,#3a414a);font-size:14.5px}
+.mbw-body p{margin:8px 0 0}
+.mbw-sub{color:var(--muted,#6b7280);font-size:13px}
+/* step 1: badge + title */
+.mbw-hero{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.mbw-logo{flex:none;width:52px;height:52px;display:block}
+.mbw-logo svg,.mbw-logo img{width:100%;height:100%;display:block}
+/* feature rows */
+.mbw-feats{list-style:none;margin:0;padding:0}
+.mbw-feats li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border,#dfe2e7)}
+.mbw-feats li:first-child{border-top:0;padding-top:4px}
+.mbw-ic{flex:none;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--r-sm,6px);background:var(--accent-soft,var(--surface-2,#f3f4f6));color:var(--accent)}
+.mbw-ic svg{width:17px;height:17px}
+.mbw-feats b{display:block;font-size:14px;font-weight:600;color:var(--ink,#1b1f24)}
+.mbw-feats span:not(.mbw-ic){display:block;font-size:13px;color:var(--ink-2,#3a414a)}
+.mbw-privacy{display:flex;gap:8px;align-items:flex-start;margin:14px 0 0!important;padding:10px 12px;border-radius:var(--r-sm,6px);background:var(--surface-2,#f3f4f6);font-size:12.5px;color:var(--ink-2,#3a414a)}
+.mbw-privacy svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--accent)}
+.mbw-privacy a,.mbw-privacy button{color:var(--accent);font:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+/* a big picture / live demo for one step (Fishing's "tap a species") */
+.mbw-demo{display:flex;align-items:center;justify-content:center;min-height:150px;margin:0 0 18px;padding:16px;border-radius:var(--r,6px);background:var(--accent-soft,var(--surface-2,#f3f4f6))}
+/* theme picker */
+.mbw-looks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.mbw-look{display:flex;flex-direction:column;gap:8px;padding:10px;border:1px solid var(--border-strong,#cfd4db);border-radius:var(--r,6px);background:var(--surface,#fff);cursor:pointer;font-size:14px;font-weight:600;color:var(--ink,#1b1f24);text-align:left;font-family:inherit}
+.mbw-look:hover{background:var(--surface-2,#f3f4f6)}
+.mbw-look[aria-pressed="true"],.mbw-look:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.mbw-look:focus-visible,.mbw-look:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.mbw-look input{position:absolute;opacity:0;pointer-events:none}
+.mbw-look .pv{height:72px;border-radius:var(--r-sm,6px);padding:8px;display:flex;flex-direction:column;gap:5px;border:1px solid}
+.mbw-look .pv b{display:block;height:8px;border-radius:2px}
+.mbw-look .pv.l{background:#f3f4f6;border-color:#dfe2e7}.mbw-look .pv.l b{background:#dfe2e7}
+.mbw-look .pv.d{background:#16181c;border-color:#30353c}.mbw-look .pv.d b{background:#30353c}
+.mbw-look .pv b.a{width:40%;background:var(--accent)!important}
+.mbw-look .pv b:last-child{width:70%}
+/* selectable option cards (goals, units, "what do you want to do") */
+.mbw-choices{display:grid;gap:8px;margin-top:14px}
+.mbw-choice{display:flex;gap:12px;align-items:flex-start;width:100%;box-sizing:border-box;padding:12px;border:1px solid var(--border-strong,#cfd4db);border-radius:var(--r,6px);
+  background:var(--surface,#fff);color:var(--ink,#1b1f24);text-align:left;font:inherit;cursor:pointer}
+.mbw-choice:hover{background:var(--surface-2,#f3f4f6)}
+.mbw-choice[aria-pressed="true"],.mbw-choice[aria-checked="true"],.mbw-choice:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);background:var(--accent-soft,var(--surface,#fff))}
+.mbw-choice b{display:block;font-size:14px}.mbw-choice small{display:block;font-size:12.5px;color:var(--muted,#6b7280);margin-top:2px}
+/* form fields */
+.mbw-field{display:block;margin-top:14px}
+.mbw-field > span{display:block;margin-bottom:5px;font-size:13px;font-weight:600;color:var(--ink-2,#3a414a)}
+.mbw-field input,.mbw-field select{box-sizing:border-box;width:100%;min-height:42px;padding:6px 12px;border:1px solid var(--border-strong,#cfd4db);border-radius:var(--r-sm,6px);background:var(--surface,#fff);color:var(--ink,#1b1f24);font:inherit;font-size:15px}
+.mbw-field input:focus,.mbw-field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft,transparent)}
+/* "Moving from another device?" row: Sign in to sync + Import a backup */
+.mbw-alt{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--border,#dfe2e7);font-size:13px;color:var(--muted,#6b7280)}
+.mbw-alt > span{flex:1 1 100%}
+/* footer buttons */
+.mbw-foot{flex:none;display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--border,#dfe2e7);background:var(--surface-2,#f6f7f9)}
+.mbw-foot .mbw-note{margin-right:auto;font-size:12.5px;color:var(--muted,#6b7280)}
+.mbw-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border:1px solid var(--border-strong,#cfd4db);border-radius:var(--r-sm,6px);
+  background:var(--surface,#fff);color:var(--ink,#1b1f24);font-family:inherit;font-size:14px;font-weight:550;line-height:1;cursor:pointer;white-space:nowrap;transition:background-color .12s ease,border-color .12s ease}
+.mbw-btn:hover{background:var(--surface-2,#f3f4f6)}
+.mbw-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mbw-btn svg{width:16px;height:16px;flex:none}
+.mbw-btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink,#fff);font-weight:600}
+.mbw-btn.pri:hover{background:var(--accent-hover,var(--accent));border-color:var(--accent-hover,var(--accent))}
+.mbw-btn:disabled{opacity:.5;cursor:not-allowed}
+.mbw-btn[hidden],.mbw-link[hidden],.mbw [hidden]{display:none!important}
+.mbw-btn.sm{min-height:34px;padding:0 12px;font-size:13px}
+@media (max-width:600px){
+  .mbw{padding:0;align-items:stretch;background:var(--surface,#fff)}
+  .mbw-card{width:100%;max-height:none;height:100%;border:0;border-radius:0;box-shadow:none}
+  .mbw-head{padding:12px 16px 10px;padding-top:max(12px,env(safe-area-inset-top))}
+  .mbw-body{padding:20px 16px}
+  .mbw-body h2{font-size:21px}
+  .mbw-foot{padding:12px 16px;padding-bottom:max(12px,env(safe-area-inset-bottom));background:var(--surface,#fff)}
+  .mbw-foot .mbw-btn{min-height:48px}
+  .mbw-foot .mbw-btn.pri{flex:1}
+  .mbw-foot .mbw-note{display:none}
+}
+@media (prefers-reduced-motion:no-preference){ .mbw-card{animation:mbw-in .18s ease-out} @keyframes mbw-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}} }
+
+/* =====================================================================
+   v3.3 · DATA MENU  (.mb-dm) — same items, wording, order and look in every app
+   Put .mb-dm on the app's existing popover element (keep its open/close JS). Items:
+   <button class="mb-dm-it" role="menuitem"><svg/><span class="t"><b>Export All (JSON)…</b><small>Complete backup…</small></span></button>
+   Section label: <div class="mb-dm-sec" role="presentation">Export</div>   Separator: <hr class="mb-dm-sep">
+   Status:  <div class="mb-dm-status"><span class="sq"></span><span>Last backup Oct 12 · 4 days ago</span></div>
+   Footer note: <p class="mb-dm-note">…</p>   Danger: <button class="mb-dm-it danger">…</button>
+   Phones (<768px): it opens as a bottom sheet over a dimmed page.
+   ===================================================================== */
+.mb-dm{box-sizing:border-box;width:348px;max-width:calc(100vw - 24px);max-height:calc(100vh - 72px);max-height:calc(100dvh - 72px);overflow-y:auto;padding:6px;
+  background:var(--surface,#fff);color:var(--ink,#1b1f24);border:1px solid var(--border,#dfe2e7);border-radius:var(--r-lg,8px);
+  box-shadow:0 12px 32px rgba(10,12,16,.16),0 2px 6px rgba(10,12,16,.06);font-family:var(--font,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);text-align:left;z-index:200}
+.mb-dm-it{box-sizing:border-box;display:flex;align-items:flex-start;gap:10px;width:100%;min-height:44px;margin:0;padding:8px 10px;border:0;border-radius:var(--r-sm,6px);
+  background:none;color:var(--ink,#1b1f24);font:inherit;text-align:left;cursor:pointer;text-decoration:none}
+.mb-dm-it:hover,.mb-dm-it:focus-visible{background:var(--surface-2,#f3f4f6);outline:none}
+.mb-dm-it:focus-visible{box-shadow:inset 0 0 0 2px var(--accent)}
+.mb-dm-it > svg,.mb-dm-it > .uic,.mb-dm-it > .ic,.mb-dm-it > .icon{flex:none;width:18px;height:18px;margin-top:1px;color:var(--ink-2,#3a414a)}
+.mb-dm-it .t{flex:1;min-width:0}
+.mb-dm-it .t b{display:block;font-size:13.5px;font-weight:600;line-height:1.3}
+.mb-dm-it .t small{display:block;margin-top:2px;font-size:12px;line-height:1.35;color:var(--muted,#6b7280);font-weight:400}
+.mb-dm-it kbd{flex:none;margin-top:1px;padding:1px 5px;border:1px solid var(--border,#dfe2e7);border-radius:3px;background:var(--surface-2,#f3f4f6);font:500 11px/1.4 var(--font,system-ui);color:var(--muted,#6b7280)}
+.mb-dm-it.is-key{background:var(--accent-soft,var(--surface-2,#f3f4f6))}
+.mb-dm-it.is-key > svg,.mb-dm-it.is-key > .uic,.mb-dm-it.is-key .t b{color:var(--accent)}
+.mb-dm-it.is-key:hover{background:color-mix(in srgb,var(--accent) 14%,var(--surface,#fff))}
+.mb-dm-it.danger .t b,.mb-dm-it.danger > svg,.mb-dm-it.danger > .uic{color:var(--crit,#c9302c)}
+.mb-dm-it[hidden]{display:none}
+.mb-dm-it:disabled,.mb-dm-it[aria-disabled="true"]{opacity:.5;cursor:default;background:none}
+.mb-dm-sec{margin:8px 10px 2px;font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#6b7280)}
+.mb-dm-sep{height:1px;margin:6px 4px;border:0;background:var(--border,#dfe2e7)}
+.mb-dm-status{display:flex;align-items:center;gap:8px;margin:6px 4px 0;padding:8px 6px 2px;border-top:1px solid var(--border,#dfe2e7);font-size:12.5px;font-weight:500;color:var(--ink-2,#3a414a)}
+.mb-dm-status .sq{flex:none;width:8px;height:8px;border-radius:2px;background:color-mix(in srgb,var(--muted,#6b7280) 55%,transparent)}
+.mb-dm-status.ok .sq{background:var(--good,#16a34a)}
+.mb-dm-status.warn .sq{background:var(--warn,#e5a100)}
+.mb-dm-note{margin:4px 10px 6px;font-size:12px;line-height:1.4;color:var(--muted,#6b7280)}
+.mb-dm-note a,.mb-dm-note button{color:var(--accent);font:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+@media (max-width:767px){
+  .mb-dm{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;transform:none!important;
+    width:100%!important;max-width:none!important;max-height:84vh;max-height:84dvh;padding:8px 8px max(10px,env(safe-area-inset-bottom));
+    border-radius:12px 12px 0 0;border-width:1px 0 0;box-shadow:0 0 0 100vmax rgba(10,12,16,.42);z-index:1000}
+  .mb-dm::before{content:"";display:block;width:36px;height:4px;margin:2px auto 8px;border-radius:2px;background:var(--border-strong,#cfd4db)}
+  .mb-dm-it{min-height:52px}
+  /* the sticky bar makes its own stacking layer: lift it above the bottom nav while its menu is open */
+  .page-bar:has([aria-expanded="true"]),.page-bar:has(details[open]){z-index:1001}
+}
+
+/* =====================================================================
+   v3.3 · SETTINGS PAGE  (.mb-set) — every app has one, same order:
+   Appearance → Account & sync → <app> settings (one or more) → Backup & data → Install → About
+   <div class="mb-set">
+     <section class="mb-set-sec" aria-labelledby="setAppearance"><h2 class="mb-set-h" id="setAppearance">Appearance</h2>
+       <div class="mb-set-card"><div class="mb-set-row"><div class="mb-set-l"><b>Theme</b><small>…</small></div><div class="mb-set-c">control</div></div></div>
+     </section> …
+   </div>
+   ===================================================================== */
+.mb-set{display:flex;flex-direction:column;gap:22px;max-width:780px;padding-bottom:8px}
+.mb-set-sec{display:flex;flex-direction:column;gap:8px;scroll-margin-top:72px}
+.mb-set-h{margin:0;padding:0 2px;font-size:11.5px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#6b7280)}
+.mb-set-card{box-sizing:border-box;padding:4px 16px;background:var(--surface,#fff);border:1px solid var(--border,#dfe2e7);border-radius:var(--r,6px)}
+.mb-set-card.pad{padding:16px}
+.mb-set-row{display:flex;align-items:center;gap:16px;min-height:52px;padding:12px 0;border-top:1px solid var(--border,#dfe2e7)}
+.mb-set-row:first-child{border-top:0}
+.mb-set-l{flex:1;min-width:0}
+.mb-set-l b{display:block;font-size:14px;font-weight:600;color:var(--ink,#1b1f24)}
+.mb-set-l small{display:block;margin-top:2px;font-size:12.5px;line-height:1.4;color:var(--muted,#6b7280)}
+.mb-set-c{flex:none;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.mb-set-row.danger .mb-set-l b{color:var(--crit,#c9302c)}
+/* segmented control (Theme: Light | Dark, units, …) */
+.mb-seg{display:inline-flex;padding:3px;gap:3px;border:1px solid var(--border-strong,#cfd4db);border-radius:var(--r-sm,6px);background:var(--surface-2,#f3f4f6)}
+.mb-seg button{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 12px;border:0;border-radius:calc(var(--r-sm,6px) - 2px);background:none;color:var(--ink-2,#3a414a);font:500 13.5px/1 var(--font,system-ui);cursor:pointer}
+.mb-seg button svg{width:16px;height:16px}
+.mb-seg button[aria-pressed="true"],.mb-seg button[aria-checked="true"]{background:var(--accent);color:var(--accent-ink,#fff)}
+.mb-seg button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+/* the Data actions on the Settings page reuse the menu items, laid out as a list inside a card */
+.mb-set-card .mb-dm-it{margin:0 -8px;width:calc(100% + 16px)}
+.mb-set-card .mb-dm-sec{margin:12px 2px 2px}
+.mb-set-card .mb-dm-note{margin:8px 2px 10px}
+.mb-set-card .mb-dm-status{margin:8px 0 0;padding:10px 0 4px}
+@media (max-width:767px){
+  .mb-set-row{flex-wrap:wrap;gap:10px}
+  .mb-set-c{flex:1 1 100%;justify-content:flex-start}
+  .mb-seg{width:100%}.mb-seg button{flex:1;justify-content:center;min-height:40px}
+}
+
+/* ---- greeting line on the start view (sync.greet(el) in mb-sync.js 1.1): "Good morning, Matthew" ---- */
+.mb-greet{margin:0 0 4px;font-size:13px;font-weight:600;letter-spacing:.005em;color:var(--accent)}
+.mb-greet:empty{display:none}
+
+/* =====================================================================
+   v3.3 · PAGE FOOTER  (.mb-foot) — last thing in every view's scroll area
+   <footer class="mb-foot">
+     <p class="mb-foot-main"><b>Money</b> v1.7 · Free · No account needed</p>
+     <nav class="mb-foot-links" aria-label="About Money"><a href="#">What's new</a><a href="#">Privacy</a><a href="#">Terms</a><a href="https://mcbflow.com/">More free apps</a></nav>
+     <p class="mb-foot-copy">© 2024–2026 Matthew Broyer</p>
+     <p class="mb-foot-note">Not financial advice.</p>   (only where the app has a disclaimer)
+   </footer>
+   ===================================================================== */
+.mb-foot{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;margin:32px 0 0;padding:16px 2px 8px;border-top:1px solid var(--border,#dfe2e7);
+  font-size:12.5px;line-height:1.5;color:var(--muted,#6b7280)}
+.mb-foot p{margin:0}
+.mb-foot-main b{color:var(--ink-2,#3a414a);font-weight:650}
+.mb-foot-links{display:flex;flex-wrap:wrap;gap:4px 14px;margin-right:auto}
+.mb-foot-links a,.mb-foot-links button{color:var(--ink-2,#3a414a);text-decoration:none;font:inherit;background:none;border:0;padding:0;cursor:pointer}
+.mb-foot-links a:hover,.mb-foot-links button:hover{color:var(--accent);text-decoration:underline}
+.mb-foot-links a:focus-visible,.mb-foot-links button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.mb-foot-note{flex:1 1 100%;font-size:12px}
+@media (max-width:767px){
+  .mb-foot{flex-direction:column;align-items:center;text-align:center;gap:8px;margin-top:24px}
+  .mb-foot-links{justify-content:center;margin:0}
+  .mb-foot-links a,.mb-foot-links button{min-height:32px;display:inline-flex;align-items:center}
+}
+@media print{ .mb-foot{display:none} }
+
+/* =====================================================================
+   v3.3 · SMALL UNIVERSAL RULES (2026-10-16)
+   ===================================================================== */
+/* Text boxes grow taller only — never wider than their column (notes, quotes, descriptions). */
+textarea{resize:vertical;max-width:100%;box-sizing:border-box}
+textarea.resize,textarea.resize-x{resize:vertical}
+/* Read-only info (temperature, moon phase, counts, status) is never styled like a button:
+   <span class="mb-info"><svg|emoji/> 48°F · Overcast</span> — no border, soft fill, no hover, default cursor.
+   Anything you can tap keeps a solid-outline button look (dashed borders are not used for buttons). */
+.mb-info{display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:3px 10px;border:0;border-radius:var(--r-sm,6px);
+  background:var(--surface-2,#f3f4f6);color:var(--ink-2,#3a414a);font-size:13px;font-weight:500;line-height:1.3;cursor:default;box-shadow:none}
+.mb-info svg{width:15px;height:15px;flex:none;color:var(--muted,#6b7280)}
+/* Two actions side by side on a phone share the row 50/50 (no lopsided pairs). */
+.mb-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.mb-pair > *{width:100%;min-width:0}
+/* Nothing in the welcome screen runs off the edge on narrow phones. */
+.mbw-alt .mbw-btn,.mbw-foot .mbw-btn{max-width:100%}
+.mbw-alt .mbw-btn{white-space:normal;text-align:left;line-height:1.25;min-height:40px}
+@media (max-width:420px){ .mbw-alt .mbw-btn{flex:1 1 100%;justify-content:flex-start} }
+.mbw-body{overflow-wrap:anywhere}

@@ -2,13 +2,24 @@
 
 Newest first. One entry per release, in plain words a user would understand.
 
+## 1.5 · 2026-10-16
+- New Settings page (the gear at the bottom of the sidebar; the first item under More on phones): theme, account and sync, list layout, backups, install and app info in one place. The old FAQ page is now **Help**, and the "Privacy & storage" note moved into Settings → Backup & data.
+- Account button in the top bar: "Sign in", or once you're signed in your profile picture with a small sync dot. Edit profile lets you pick a screen name and one of the profile pictures; every mcbflow.com app shows the same ones. New "Keep me signed in on this device" switch (turn it off on a shared computer).
+- A greeting above My list: "Good morning", with your name when you're signed in.
+- New welcome screen, the same in every mcbflow.com app: what Wishlist does, light or dark, then start with the sample list or an empty one. You can sign in or import a backup right from it. The separate "Privacy & storage" pop-up is gone; its message is on the first step.
+- Clearer Data menu, in the same order as the other apps, and every item says what it does. New **Export All (ZIP)**: your backup, a spreadsheet and all your item photos in one file. **Import Backup** reads JSON or ZIP files. The backup file location and "Change location…" are in Settings.
+- Tap an item photo (card, table, Purchased, Compare, review, or the edit window) to see it full size in the app, with arrows between the photos on screen. Product links still open the store as before.
+- Signed in and syncing: no backup warnings. The backup chip reads "Synced" and the Data menu says "Synced to your account".
+- Even top bar (every button the same height), the new name style "Wishlist ∙ mcbflow.com", the standard gear (Settings) and question-mark (Help) icons, and a short footer with What's new, Privacy, Terms and More free apps.
+- Backups now say `"app": "wishlist"` inside the file. Older backups still import the same way.
+
 ## 1.4 · 2026-10-15
 - New: optional sync across devices. Data → Sync across devices signs in with a free mcbflow.com account; items, prices and history then match on every device you sign in on.
 - Item photos stay on the device where you added them; other devices show the item without its photo. Sample items never sync.
 - Not signed in: nothing changes. Clearing items or all data warns when you're signed in.
 
 ## 1.3 · 2026-10-14
-- Moved to wishlist.mcbflow.com. Data saved at mbwishlist.online doesn't carry over: export a backup there and import it here.
+- Moved to wishlist.mcbflow.com. Data saved at the old address doesn't carry over: export a backup there and import it here.
 - Storage names simplified.
 
 ## 1.2 · 2026-10-14

@@ -136,35 +136,9 @@ kbd{font-family:var(--font);font-size:11px;font-weight:600;line-height:1;padding
 .btn.buy:hover{background:var(--accent-soft);border-color:var(--accent)}
 .btn:disabled,.btn:disabled:hover{opacity:1;background:var(--surface-2);border-color:var(--border);color:var(--muted);cursor:not-allowed}
 .actions .btn,.actions .lvlchip{min-height:var(--ctl-sm)}
-.page-bar .actions .tb-chip{min-height:var(--tb-h,36px)}   /* backup chip matches the 36px bar controls */
-.bk-chip{display:inline-flex;align-items:center;gap:6px;min-height:var(--ctl-sm);padding:0 10px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink-2);font-size:12px;font-weight:550;white-space:nowrap;transition:background-color var(--ease),border-color var(--ease),color var(--ease)}
-.bk-chip svg.i{width:14px;height:14px}
-.bk-chip:hover{border-color:var(--border-strong);color:var(--ink)}
-.bk-chip.warn{background:color-mix(in srgb,var(--warn) 14%,var(--surface));border-color:color-mix(in srgb,var(--warn) 55%,transparent);color:var(--warn-ink)}
 .menu-wrap{position:relative}
-/* Data button: styled by mb-suite-topbar.css; the dot only shows when the backup is stale (JS toggles .stale) */
-#menuToggle:not(.stale) .tb-dot{display:none}
-
-/* theme switch: styled by mb-suite-topbar.css (v3.2 standard) */
-
-.dm-panel{position:absolute;right:0;top:calc(100% + 6px);z-index:70;width:330px;max-width:calc(100vw - 24px);background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--r);box-shadow:var(--shadow-pop);padding:4px}
-.dm-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;color:var(--ink);font-size:13.5px;border-radius:var(--r-sm);min-height:48px;padding:8px 12px}
-.dm-item:hover,.dm-item:focus-visible{background:var(--surface-2)}
-.dm-item > svg.i{color:var(--ink-2)}
-.dm-t{display:flex;flex-direction:column;flex:1;min-width:0;line-height:1.3}
-.dm-t b{font-weight:600}
-.dm-t small{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
-.dm-item.primary{background:var(--accent);color:var(--accent-ink)}
-.dm-item.primary > svg.i,.dm-item.primary .dm-t small{color:inherit}
-.dm-item.primary .dm-t small{opacity:.85}
-.dm-item.primary:hover,.dm-item.primary:focus-visible{background:var(--accent-hover)}
-.dm-item.primary kbd{background:transparent;color:inherit;border-color:color-mix(in srgb,var(--accent-ink) 45%,transparent)}
-.dm-item.danger,.dm-item.danger > svg.i{color:var(--crit)}
-.dm-item.danger:hover{background:color-mix(in srgb,var(--crit) 8%,var(--surface))}
-.dm-sep{height:1px;background:var(--border);margin:4px 6px}
-.dm-foot{border-top:1px solid var(--border);margin-top:4px;padding:10px 12px 8px;font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:4px;line-height:1.4}
-.dm-foot b{color:var(--ink-2);font-weight:600}
-.dm-foot .st-warn{color:var(--warn-ink);font-weight:600}
+/* Data menu (.mb-dm, MB Suite v3.3): items, status and phone bottom sheet come from mb-suite-topbar.css; this only anchors it under the button */
+.menu-wrap > .mb-dm{position:absolute;right:0;top:calc(100% + 6px)}
 
 main.wrap{min-height:60vh;padding-top:20px;padding-bottom:48px}
 .page-h{display:flex;flex-wrap:wrap;gap:10px 16px;justify-content:space-between;margin-bottom:14px;align-items:flex-end}
@@ -323,10 +297,6 @@ body.has-cart .toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
 .totop.visible{opacity:1;visibility:visible}
 .totop:hover{background:var(--surface-2);color:var(--ink);border-color:var(--border-strong)}
 body.has-cart .totop{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
-.notice{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;border:1px solid var(--border-strong);display:flex;flex-direction:column;gap:0;border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow-pop);padding:14px 16px;max-width:380px}
-.notice b{font-size:13.5px}
-.notice p{font-size:13px;margin:4px 0 10px}
-.notice .actions{margin:0;align-self:flex-end}
 
 .faq-list{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:0 16px}
 .faq-item + .faq-item{border-top:1px solid var(--border)}
@@ -361,16 +331,6 @@ body.has-cart .totop{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
 .legal-text code{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);border:1px solid var(--border);border-radius:3px;padding:0 4px}
 .legal-updated{color:var(--muted);font-size:12.5px;margin-bottom:12px!important}
 
-.ob-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:6px}
-.logo.lg{width:52px;height:52px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center;flex-shrink:0}
-.logo.lg svg.i,.logo.lg .logo-mark{width:28px;height:28px}
-.onboarding-list{margin:6px 0 16px;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
-.onboarding-list li::marker{color:var(--accent)}
-
-.site-footer{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;align-items:center;max-width:var(--page-max);margin:8px auto 0;border-top:1px solid var(--border);padding:14px var(--gutter) 24px;color:var(--muted);font-size:12.5px}
-.site-footer .footer-links{display:flex;flex-wrap:wrap;gap:4px 14px}
-.site-footer button{background:none;border:0;padding:0;color:var(--muted);text-decoration:underline;text-underline-offset:2px;font-size:inherit}
-.site-footer button:hover{color:var(--ink)}
 
 .bnav,.bn-sheet{display:none}
 
@@ -410,9 +370,8 @@ body.has-cart .totop{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
   .bn-item{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 12px;border:0;text-align:left;color:var(--ink);font-size:14px;border-radius:var(--r-sm);background:var(--surface)}
   .bn-item:hover{background:var(--surface-2)}
   .bn-item svg.i{color:var(--ink-2)}
-  .site-footer{padding-bottom:24px}
   .cartbar{bottom:calc(64px + env(safe-area-inset-bottom,0px))}
-  .toast,.totop,.notice{bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+  .toast,.totop{bottom:calc(68px + env(safe-area-inset-bottom,0px))}
   body.has-cart .toast,body.has-cart .totop{bottom:calc(140px + env(safe-area-inset-bottom,0px))}
   body.has-cart main.wrap{padding-bottom:130px}
 }
@@ -431,8 +390,6 @@ body.has-cart .totop{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
 }
 @media(max-width:520px){
   .wrap{padding-inline:12px}
-  .bk-chip{display:none}
-  .dm-panel{position:fixed;left:8px;right:8px;top:58px;width:auto;max-width:none;max-height:calc(100vh - 140px);overflow-y:auto}
   .page-h .ph-actions .btn{flex:1}
   .page-h .ph-actions{width:100%}
   .page-h h2{font-size:20px}
@@ -447,7 +404,6 @@ body.has-cart .totop{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
   .cartbar .cart-info{font-size:12px}
   .cartbar .cart-info svg.i{display:none}
   .cartbar .btn{padding:0 12px}
-  .notice{left:8px;right:8px;max-width:none!important}
   .modal-overlay{padding:0;align-items:flex-end}
   .modal{border-radius:8px 8px 0 0;max-height:94vh;overflow-y:auto}
   .card{padding:14px}
@@ -456,7 +412,7 @@ body.has-cart .totop{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
 }
 @media(max-width:380px){.wgrid{grid-template-columns:1fr}}
 @media print{
-  .mb-side,.page-bar,.bnav,.bn-sheet,.cartbar,.totop,.notice,.toolbar,#toastHost,.site-footer,.ph-actions,.banner{display:none!important}
+  .mb-side,.page-bar,.bnav,.bn-sheet,.cartbar,.totop,.toolbar,#toastHost,.ph-actions,.banner{display:none!important}
   body{background:#fff}
 }
 @media(pointer:coarse),(max-width:700px){
@@ -583,7 +539,7 @@ body{background:none}
    Markup (see v3-updates/demo/index.html for a working page):
    <body class="mb-shell">
      <aside class="mb-side" aria-label="App">
-       <a class="brand" href="./" aria-label="mbname.online: go to Home"> .logo + .bt(b + span) </a>
+       <a class="brand" href="./" aria-label="Money (money.mcbflow.com): go to Home"> .logo + .bt(b + span) </a>
        <nav class="side-nav" aria-label="Sections"> <button aria-current="page"><svg class="uic"/><span>Home</span></button> … </nav>
        <nav class="side-nav side-end" aria-label="More"> Settings / Help items (optional) </nav>
      </aside>
@@ -735,8 +691,8 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 /* v2 banner on phones: keep the text column clear of the art */
 @media (max-width:600px){:where(.cu-banner) .cu-txt{max-width:54%}}   /* same as the v2 adapters; low specificity so an adapter can override */
 </style>
-<style id="mbwishlist-adapter">
-/* ===== mbwishlist adapters: v2 cutouts + v3 shell fit (per-app; everything above this block is shared kit CSS) ===== */
+<style id="wishlist-adapter">
+/* ===== Wishlist adapters: v2 cutouts + v3 shell fit (per-app; everything above this block is shared kit CSS) ===== */
 /* art + wash follow the brand amber (#D97706), not the deeper UI accent used for text contrast */
 :root{--cut-deep:var(--brand);--cut-mid:color-mix(in srgb,var(--brand) 52%,#fff);--cut-soft:color-mix(in srgb,var(--brand) 24%,#fff);
   --wash-top:color-mix(in srgb,var(--brand) 7%,#fff);--wash-mid:color-mix(in srgb,var(--brand) 4%,var(--bg))}
@@ -748,14 +704,12 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 /* shell fit */
 /* light mode: accent text on accent-tinted backgrounds uses the deeper amber so it clears 4.5:1 (was 4.1-4.5) */
 :root:not([data-theme="dark"]) .side-nav [aria-current="page"],:root:not([data-theme="dark"]) .banner strong{color:var(--accent-hover)}
-.tld{font-style:normal;color:var(--accent)}
 @media (min-width:701px){ .toolbar select{width:auto;flex:0 1 auto;min-width:150px} }  /* filters sit in one row next to search (they stacked full-width before) */
 .page-bar{z-index:50}
 .brand .logo svg{border-radius:0}
 .mb-side .side-nav .count{margin-left:auto}
 .cartbar{left:calc(50% + var(--side-w) / 2);width:min(760px,calc(100% - var(--side-w) - 24px))}
 .toast{left:calc(50% + var(--side-w) / 2)}
-.notice{left:calc(var(--side-w) + 16px)}
 #homeBanner .cu-art{max-width:62%}
 .page-h{align-items:flex-end}
 @media (min-width:768px){ .page-h h2{display:none} .page-h p{margin-top:0} }  /* the page bar names the view; the line under it stays */
@@ -763,16 +717,23 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 .share-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:12px 14px}
 .share-row b{font-size:14px}
 .share-row p{color:var(--ink-2);font-size:13px;margin-top:2px}
-#faqInstall{margin-top:12px}
+/* v3.3: item photos open in the viewer (MBFiles.view) */
+.thumb-btn{display:block;width:100%;height:100%;margin:0;padding:0;border:0;border-radius:0;background:none;cursor:zoom-in}
+.thumb-btn:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.image-preview .thumb-btn img{width:100%;height:100%;object-fit:cover;display:block}
+/* legal pages and release notes open above the welcome screen (.mbw is z-index 1000) */
+#privacyOverlay,#termsOverlay,#releaseNotesOverlay{z-index:1010}
+/* Settings page */
+#settingsSection .mb-about{margin-top:0}
+.mb-set .mb-set-c .btn{min-height:var(--ctl-sm)}
+.bn-item .uic{color:var(--ink-2)}
 @media (max-width:1023px){
   .cartbar{left:calc(50% + var(--rail-w) / 2);width:min(760px,calc(100% - var(--rail-w) - 24px))}
   .toast{left:calc(50% + var(--rail-w) / 2)}
-  .notice{left:calc(var(--rail-w) + 16px)}
 }
 @media (max-width:767px){
   .cartbar,.toast{left:50%}
   .cartbar{width:calc(100% - 24px)}
-  .notice{left:8px}
   .page-bar .actions .hide-phone{display:none}
 }
 </style>
@@ -787,74 +748,34 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 <a href="#main" class="skip">Skip to content</a>
 
 <aside class="mb-side" aria-label="App">
-  <a class="brand" href="./" data-home aria-label="wishlist.mcbflow.com: go to My list"><span class="logo"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbwi-g1-2" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#de8a29"/><stop offset=".55" stop-color="#D97706"/><stop offset="1" stop-color="#ae5f05"/></linearGradient><clipPath id="mbwi-c1-2"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbwi-c1-2)"><rect width="64" height="64" fill="url(#mbwi-g1-2)"/><path d="M33 12h15a4 4 0 0 1 4 4v15a4 4 0 0 1-1.2 2.8L33.5 51.2a4 4 0 0 1-5.7 0L12.8 36.2a4 4 0 0 1 0-5.7L30.2 13.2A4 4 0 0 1 33 12z" fill="#fff"/>
-<circle cx="43.5" cy="20.5" r="3.2" fill="#D97706"/><path d="M30.5 41c-4.4-3-6.8-5.2-6.8-7.8a3.5 3.5 0 0 1 6.8-1.1 3.5 3.5 0 0 1 6.8 1.1c0 2.6-2.4 4.8-6.8 7.8z" fill="#9A4F05"/></g></svg></span><span class="bt"><b>wishlist<i class="tld">.mcbflow.com</i></b><span>Official Web App · v1.4</span></span></a>
+  <a class="brand" href="./" data-home aria-label="Wishlist (wishlist.mcbflow.com): go to My list"><span class="logo"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbwi-g1-2" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#de8a29"/><stop offset=".55" stop-color="#D97706"/><stop offset="1" stop-color="#ae5f05"/></linearGradient><clipPath id="mbwi-c1-2"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbwi-c1-2)"><rect width="64" height="64" fill="url(#mbwi-g1-2)"/><path d="M33 12h15a4 4 0 0 1 4 4v15a4 4 0 0 1-1.2 2.8L33.5 51.2a4 4 0 0 1-5.7 0L12.8 36.2a4 4 0 0 1 0-5.7L30.2 13.2A4 4 0 0 1 33 12z" fill="#fff"/>
+<circle cx="43.5" cy="20.5" r="3.2" fill="#D97706"/><path d="M30.5 41c-4.4-3-6.8-5.2-6.8-7.8a3.5 3.5 0 0 1 6.8-1.1 3.5 3.5 0 0 1 6.8 1.1c0 2.6-2.4 4.8-6.8 7.8z" fill="#9A4F05"/></g></svg></span><span class="bt"><b>Wishlist<i class="tld"><span class="sep" aria-hidden="true">∙</span>mcbflow.com</i></b><span>Official Web App · v1.5</span></span></a>
   <nav class="side-nav" id="siteNav" aria-label="Sections">
-    <button type="button" id="tabWishlist" data-tab="wishlist" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-list"/></svg><span>My list</span><span class="count" id="countWishlist"></span></button>
-    <button type="button" id="tabPurchased" data-tab="purchased"><svg class="i" aria-hidden="true"><use href="#i-bought"/></svg><span>Purchased</span><span class="count" id="countPurchased"></span></button>
+    <button type="button" id="tabWishlist" data-tab="wishlist" aria-current="page"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span>My list</span><span class="count" id="countWishlist"></span></button>
+    <button type="button" id="tabPurchased" data-tab="purchased"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/><path d="m9.5 13.5 2 2 3.5-4"/></svg><span>Purchased</span><span class="count" id="countPurchased"></span></button>
   </nav>
-  <nav class="side-nav side-end" aria-label="Help">
-    <button type="button" id="tabFaq" data-tab="faq"><svg class="i" aria-hidden="true"><use href="#i-help"/></svg><span>FAQ</span></button>
+  <nav class="side-nav side-end" aria-label="Settings and help">
+    <button type="button" id="tabSettings" data-tab="settings"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19.00 10.32 L21.51 10.72 L21.51 13.28 L19.00 13.68 L18.14 15.76 L19.63 17.82 L17.82 19.63 L15.76 18.14 L13.68 19.00 L13.28 21.51 L10.72 21.51 L10.32 19.00 L8.24 18.14 L6.18 19.63 L4.37 17.82 L5.86 15.76 L5.00 13.68 L2.49 13.28 L2.49 10.72 L5.00 10.32 L5.86 8.24 L4.37 6.18 L6.18 4.37 L8.24 5.86 L10.32 5.00 L10.72 2.49 L13.28 2.49 L13.68 5.00 L15.76 5.86 L17.82 4.37 L19.63 6.18 L18.14 8.24Z"/><circle cx="12" cy="12" r="3"/></svg><span>Settings</span></button>
+    <button type="button" id="tabHelp" data-tab="help"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.3a2.8 2.8 0 1 1 3.9 2.6c-.7.3-1.2 1-1.2 1.8v.6"/><path d="M12 17.3h.01"/></svg><span>Help</span></button>
   </nav>
 </aside>
 
 <div class="mb-main">
 <header class="page-bar" id="siteHeader">
-  <a class="brand phone-brand" href="./" data-home aria-label="wishlist.mcbflow.com: go to My list"><span class="logo"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbwi-g1-3" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#de8a29"/><stop offset=".55" stop-color="#D97706"/><stop offset="1" stop-color="#ae5f05"/></linearGradient><clipPath id="mbwi-c1-3"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbwi-c1-3)"><rect width="64" height="64" fill="url(#mbwi-g1-3)"/><path d="M33 12h15a4 4 0 0 1 4 4v15a4 4 0 0 1-1.2 2.8L33.5 51.2a4 4 0 0 1-5.7 0L12.8 36.2a4 4 0 0 1 0-5.7L30.2 13.2A4 4 0 0 1 33 12z" fill="#fff"/>
-<circle cx="43.5" cy="20.5" r="3.2" fill="#D97706"/><path d="M30.5 41c-4.4-3-6.8-5.2-6.8-7.8a3.5 3.5 0 0 1 6.8-1.1 3.5 3.5 0 0 1 6.8 1.1c0 2.6-2.4 4.8-6.8 7.8z" fill="#9A4F05"/></g></svg></span><span class="bt"><b>wishlist<i class="tld">.mcbflow.com</i></b><span>Official Web App · v1.4</span></span></a>
+  <a class="brand phone-brand" href="./" data-home aria-label="Wishlist (wishlist.mcbflow.com): go to My list"><span class="logo"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbwi-g1-3" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#de8a29"/><stop offset=".55" stop-color="#D97706"/><stop offset="1" stop-color="#ae5f05"/></linearGradient><clipPath id="mbwi-c1-3"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbwi-c1-3)"><rect width="64" height="64" fill="url(#mbwi-g1-3)"/><path d="M33 12h15a4 4 0 0 1 4 4v15a4 4 0 0 1-1.2 2.8L33.5 51.2a4 4 0 0 1-5.7 0L12.8 36.2a4 4 0 0 1 0-5.7L30.2 13.2A4 4 0 0 1 33 12z" fill="#fff"/>
+<circle cx="43.5" cy="20.5" r="3.2" fill="#D97706"/><path d="M30.5 41c-4.4-3-6.8-5.2-6.8-7.8a3.5 3.5 0 0 1 6.8-1.1 3.5 3.5 0 0 1 6.8 1.1c0 2.6-2.4 4.8-6.8 7.8z" fill="#9A4F05"/></g></svg></span><span class="bt"><b>Wishlist<i class="tld"><span class="sep" aria-hidden="true">∙</span>mcbflow.com</i></b><span>Official Web App · v1.5</span></span></a>
   <h1 class="page-title" id="pageTitle">My list</h1>
   <div class="actions">
       <button type="button" class="tb tb-search tb-opt" id="searchBtn" aria-label="Search (/ or Ctrl+K)" title="Search (/ or Ctrl+K)"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span class="tb-lbl">Search…</span><kbd>/</kbd></button>
-      <button type="button" class="bk-chip tb-chip hide-phone" id="bkChip" title="Save a backup now"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span id="bkChipText">Never backed up</span></button>
+      <button type="button" class="tb-chip" id="bkChip" title="Save a backup now"><span id="bkChipText">Never backed up</span></button>
       <div class="menu-wrap">
-        <button type="button" class="tb" id="menuToggle" aria-haspopup="true" aria-expanded="false" aria-controls="settingsMenu" aria-label="Data: backup, import, export" title="Data: backup, import, export">
-          <svg class="i" aria-hidden="true"><use href="#i-data"/></svg><span class="tb-lbl lbl-t">Data</span><svg class="i tb-chev" aria-hidden="true"><use href="#i-chev"/></svg><span class="dot tb-dot" aria-hidden="true"></span>
-        </button>
-        <div class="dm-panel" id="settingsMenu" role="menu" aria-label="Data" hidden>
-          <button type="button" class="dm-item primary" id="saveNowBtn" role="menuitem">
-            <svg class="i" aria-hidden="true"><use href="#i-save"/></svg>
-            <span class="dm-t"><b>Save backup now</b><small id="saveNowSub">Choose where to save it the first time</small></span>
-            <kbd id="saveNowKbd">Ctrl S</kbd>
-          </button>
-          <button type="button" class="dm-item" id="syncBtn" role="menuitem" hidden>
-            <svg class="i" aria-hidden="true"><use href="#i-download"/></svg>
-            <span class="dm-t"><b id="syncTitle">Sync across devices…</b><small id="syncSub">Optional free account. Photos stay on each device</small></span>
-          </button>
-          <button type="button" class="dm-item" id="exportJsonBtn" role="menuitem">
-            <svg class="i" aria-hidden="true"><use href="#i-download"/></svg>
-            <span class="dm-t"><b>Export All (JSON)…</b><small>Full backup. Pick the folder and file name</small></span>
-          </button>
-          <button type="button" class="dm-item" id="importBtn" role="menuitem">
-            <svg class="i" aria-hidden="true"><use href="#i-upload"/></svg>
-            <span class="dm-t"><b>Import Backup (JSON)…</b><small>Adds items. Skips ones already on your list</small></span>
-          </button>
-          <button type="button" class="dm-item" id="importCsvBtn" role="menuitem">
-            <svg class="i" aria-hidden="true"><use href="#i-sheet"/></svg>
-            <span class="dm-t"><b>Import Spreadsheet (CSV)…</b><small>Bring in a list from Excel or Sheets. You check the columns first</small></span>
-          </button>
-          <button type="button" class="dm-item" id="exportCsvBtn" role="menuitem">
-            <svg class="i" aria-hidden="true"><use href="#i-sheet"/></svg>
-            <span class="dm-t"><b>Export All (CSV)…</b><small>Every item, for Excel or Sheets</small></span>
-          </button>
-          <div class="dm-sep" role="separator"></div>
-          <button type="button" class="dm-item danger" id="resetAllBtn" role="menuitem">
-            <svg class="i" aria-hidden="true"><use href="#i-trash"/></svg>
-            <span class="dm-t"><b>Clear wishlist items…</b></span>
-          </button>
-          <button type="button" class="dm-item danger" id="clearAllDataBtn" role="menuitem">
-            <svg class="i" aria-hidden="true"><use href="#i-trash"/></svg>
-            <span class="dm-t"><b>Clear all data…</b></span>
-          </button>
-          <div class="dm-foot" id="dmFoot">
-            <div id="bkStatusLine">Never backed up</div>
-            <div id="bkFileLine"></div>
-            <div id="bkCsvLine" hidden></div>
-          </div>
-        </div>
+        <button type="button" class="tb" id="dataBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="dataMenu" aria-label="Data: back up, sync, export or import" title="Data: back up, sync, export or import"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg><span class="tb-lbl">Data</span><svg class="tb-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><span class="tb-dot" id="dataDot" aria-hidden="true" hidden></span></button>
+        <div class="mb-dm" id="dataMenu" role="menu" aria-label="Data" hidden></div>
       </div>
-      <input type="file" id="importFileInput" accept="application/json,.json" hidden>
+      <input type="file" id="importFileInput" accept="application/json,.json,application/zip,.zip" hidden>
       <input type="file" id="importCsvInput" accept=".csv,text/csv" hidden>
-      <button type="button" class="themesw" id="themeToggleBtn" role="switch" aria-checked="false" aria-label="Dark mode" title="Dark mode"><span class="tk"><svg class="i-sun" viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="10" r="3.2"/><path d="M10 2.5v1.8M10 15.7v1.8M2.5 10h1.8M15.7 10h1.8M4.7 4.7l1.3 1.3M14 14l1.3 1.3M4.7 15.3 6 14M14 6l1.3-1.3"/></svg><svg class="i-moon" viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M16.5 12.2A6.6 6.6 0 0 1 7.8 3.5a6.6 6.6 0 1 0 8.7 8.7Z"/></svg><i class="th"></i></span></button>
+      <button type="button" class="themesw" id="themeToggleBtn" role="switch" aria-checked="false" aria-label="Dark mode" title="Dark mode"><span class="tk"><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg><i class="th"></i></span></button>
+      <button type="button" class="tb tb-acct" id="acctBtn"></button>
       <button type="button" class="tb tb-primary" id="addItemBtn" aria-label="Add item" title="Add item"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg><span class="tb-lbl">Add item</span></button>
   </div>
 </header>
@@ -862,7 +783,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 <main class="wrap" id="main" tabindex="-1">
   <section class="cu-banner" id="homeBanner">
     <svg class="cu-art" viewBox="0 0 640 136" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false"><circle class="b" cx="560" cy="46" r="26"/><path class="s" d="M210 150 C315 80 525 80 630 150Z"/><path class="m" d="M410 150 C485 66 635 66 710 150Z"/><path class="d" d="M530 150 C585 90 695 90 750 150Z"/><path class="n" transform="translate(470 98) rotate(-64) scale(0.5)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(480 98) rotate(-116) scale(0.4)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><circle class="r" cx="360" cy="44" r="6"/></svg>
-    <div class="cu-txt"><h2 class="cu-t">My list</h2><p class="cu-s" id="bannerSub">Planned purchases, in one place.</p></div>
+    <div class="cu-txt"><p class="mb-greet" id="greet"></p><h2 class="cu-t">My list</h2><p class="cu-s" id="bannerSub">Planned purchases, in one place.</p></div>
   </section>
 
   <div class="page-h" id="viewHead" hidden>
@@ -956,7 +877,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     <div class="faq-list" id="faqList">
       <div class="faq-item" id="faq-1">
         <button class="faq-q" aria-expanded="false"><span>Where is my list saved?</span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
-        <div class="faq-answer"><p>Item details are saved in this browser's local storage. Photos are stored separately in IndexedDB on this device. Nothing is sent to a server. Clearing browser data or using another browser shows an empty list. Back it up from the Data menu.</p></div>
+        <div class="faq-answer"><p>Item details are saved in this browser's local storage. Photos are stored separately in IndexedDB on this device. Nothing is sent to a server unless you sign in to sync, and photos never are. Clearing browser data or using another browser shows an empty list. Back it up from the Data menu.</p></div>
       </div>
       <div class="faq-item" id="faq-2">
         <button class="faq-q" aria-expanded="false"><span>Can I pull a product's photo or price automatically from a link?</span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
@@ -964,7 +885,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       </div>
       <div class="faq-item" id="faq-3">
         <button class="faq-q" aria-expanded="false"><span>How do I back up or move my list to another device?</span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
-        <div class="faq-answer"><p>Open the Data menu. "Export All (JSON)" saves a full backup (including photos), and "Export All (CSV)" saves a spreadsheet copy. On the new device, use "Import Backup (JSON)". Importing the same file twice won't double anything.</p></div>
+        <div class="faq-answer"><p>Open the Data menu. "Export All (JSON)" saves a full backup (including photos), "Export All (ZIP)" puts that backup, a spreadsheet and your photos in one file, and "Export All (CSV)" saves a spreadsheet copy. On the new device, use "Import Backup" and pick the JSON or ZIP file. Importing the same file twice won't double anything. Or sign in to sync: your items then match on every device (photos stay on the device you added them on).</p></div>
       </div>
       <div class="faq-item" id="faq-7">
         <button class="faq-q" aria-expanded="false"><span>Where do backups get saved?</span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
@@ -976,7 +897,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       </div>
       <div class="faq-item" id="faq-5">
         <button class="faq-q" aria-expanded="false"><span>Does anyone else see my list?</span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
-        <div class="faq-answer"><p>No. There's no account and no server. It lives on whichever browser and device you added it from.</p></div>
+        <div class="faq-answer"><p>No. Unless you sign in to sync, there's no account and nothing leaves this browser. If you do sign in, your synced items can only be read by your own account.</p></div>
       </div>
       <div class="faq-item" id="faq-6">
         <button class="faq-q" aria-expanded="false"><span>What are the small store labels on my items?</span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
@@ -1004,47 +925,75 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       </div>
       <div class="faq-item" id="faq-12">
         <button class="faq-q" aria-expanded="false"><span>Can I install it like an app?</span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
-        <div class="faq-answer"><p>Yes. In Chrome or Edge, use the Install button at the bottom of this page when your browser offers it, or the install icon in the address bar. On iPhone or iPad, tap Share, then Add to Home Screen. Installed, it opens in its own window and works offline after the first visit. On iPhone and iPad the Home Screen version keeps its own storage, so use a backup to move your list into it.</p></div>
+        <div class="faq-answer"><p>Yes. In Chrome or Edge, use the Install button in Settings when your browser offers it, or the install icon in the address bar. On iPhone or iPad, tap Share, then Add to Home Screen. Installed, it opens in its own window and works offline after the first visit. On iPhone and iPad the Home Screen version keeps its own storage, so use a backup to move your list into it.</p></div>
       </div>
       <div class="faq-item" id="faq-13">
         <button class="faq-q" aria-expanded="false"><span>What does the Share button make?</span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></button>
         <div class="faq-answer"><p>On the Purchased tab, Share makes a square image of your progress: how many planned things you bought, how many you decided against, and how many are still on your list. It's drawn on your device and nothing is uploaded. Item names never go on it, and dollar amounts only appear if you turn them on.</p></div>
       </div>
     </div>
-    <div id="faqInstall" data-mb-install data-app-name="Wishlist" data-note="Opens in its own window with its own icon. Works offline after the first visit."></div>
-    <div class="mb-about" role="group" aria-label="About this app">
-      <svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.5v.01"/></svg>
-      <div>
-        <b>wishlist.mcbflow.com™</b>
-        <p>Version 1.4 · Oct 15, 2026</p>
-        <p class="mb-about-links"><button type="button" id="aboutWhatsNewBtn">What's new</button><button type="button" id="aboutPrivacyBtn">Privacy</button><button type="button" id="aboutTermsBtn">Terms</button><a href="https://mcbflow.com/">More free apps at mcbflow.com</a></p>
-        <p class="mb-about-copy">© 2026 Matthew Broyer. All rights reserved.</p>
-      </div>
+  </section>
+
+  <section id="settingsSection" hidden>
+    <div class="mb-set">
+      <section class="mb-set-sec" aria-labelledby="setA"><h2 class="mb-set-h" id="setA">Appearance</h2>
+        <div class="mb-set-card"><div class="mb-set-row"><div class="mb-set-l"><b>Theme</b><small>Light or dark. Saved on this device.</small></div>
+          <div class="mb-set-c"><div class="mb-seg" role="group" aria-label="Theme"><button type="button" data-theme-set="light" aria-pressed="true"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Light</button><button type="button" data-theme-set="dark" aria-pressed="false"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>Dark</button></div></div></div></div>
+      </section>
+      <section class="mb-set-sec" aria-labelledby="setS"><h2 class="mb-set-h" id="setS">Account &amp; sync</h2>
+        <div class="mb-set-card pad" id="syncCard"></div>
+      </section>
+      <section class="mb-set-sec" aria-labelledby="setApp"><h2 class="mb-set-h" id="setApp">Wishlist settings</h2>
+        <div class="mb-set-card">
+          <div class="mb-set-row"><div class="mb-set-l"><b>List layout</b><small>How My list shows your items: cards with photos, or a compact table. Saved on this device.</small></div>
+            <div class="mb-set-c"><div class="mb-seg" role="group" aria-label="List layout"><button type="button" data-view-set="grid" aria-pressed="true"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>Grid</button><button type="button" data-view-set="table" aria-pressed="false"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9.5h16M4 14.5h16"/></svg>Table</button></div></div></div>
+          <div class="mb-set-row" id="setSampleRow" hidden><div class="mb-set-l"><b>Sample items</b><small>The example items from your first visit are still on your list. They never sync.</small></div>
+            <div class="mb-set-c"><button type="button" class="btn" data-act="clear-samples">Clear sample items</button></div></div>
+        </div>
+      </section>
+      <section class="mb-set-sec" aria-labelledby="setD"><h2 class="mb-set-h" id="setD">Backup &amp; data</h2>
+        <div class="mb-set-card" id="setDataList" style="padding:8px 16px"></div>
+        <div class="mb-set-card">
+          <div class="mb-set-row" id="setFileRow"><div class="mb-set-l"><b>Backup file</b><small id="setFileTxt">This browser saves backups to your Downloads folder.</small></div>
+            <div class="mb-set-c"><button type="button" class="btn" data-act="change-loc" id="setFileBtn" hidden>Change location…</button></div></div>
+          <div class="mb-set-row"><div class="mb-set-l"><b>Privacy &amp; storage</b><small>Your list saves to this browser’s local storage and IndexedDB, not cookies. Nothing is sent to a server or shared with anyone unless you sign in to sync, and photos are never uploaded.</small></div>
+            <div class="mb-set-c"><button type="button" class="btn" data-open="privacy">Privacy Policy</button></div></div>
+        </div>
+      </section>
+      <section class="mb-set-sec" aria-labelledby="setI"><h2 class="mb-set-h" id="setI">Install</h2>
+        <div id="setInstall" data-mb-install data-app-name="Wishlist" data-note="Opens in its own window with its own icon. Works offline after the first visit."></div>
+        <div class="mb-set-card" id="setInstallHint"><div class="mb-set-row"><div class="mb-set-l"><b>Install Wishlist</b><small>Your browser hasn’t offered to install it here yet. In Chrome or Edge, use the install icon in the address bar; on iPhone or iPad, tap Share, then Add to Home Screen. Installed, it opens in its own window and works offline.</small></div></div></div>
+      </section>
+      <section class="mb-set-sec" aria-labelledby="setAb"><h2 class="mb-set-h" id="setAb">About</h2>
+        <div class="mb-about" role="group" aria-label="About this app"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><div>
+          <b>wishlist.mcbflow.com™</b>
+          <p>Version 1.5 · Oct 16, 2026</p>
+          <p class="mb-about-links"><button type="button" data-open="release">What’s new</button><button type="button" data-open="privacy">Privacy</button><button type="button" data-open="terms">Terms</button><button type="button" data-tab-go="help">Help</button><a href="https://mcbflow.com/">More free apps at mcbflow.com</a></p>
+          <p class="mb-about-copy">© 2026 Matthew Broyer. All rights reserved.</p>
+        </div></div>
+      </section>
     </div>
   </section>
+
+  <footer class="mb-foot" id="pageFoot">
+    <p class="mb-foot-main"><b>Wishlist</b> v1.5 · Free · No account needed</p>
+    <nav class="mb-foot-links" aria-label="About Wishlist"><button type="button" data-open="release">What’s new</button><button type="button" data-open="privacy">Privacy</button><button type="button" data-open="terms">Terms</button><a href="https://mcbflow.com/">More free apps</a></nav>
+    <p class="mb-foot-copy">© 2026 Matthew Broyer</p>
+  </footer>
 </main>
 
-<footer class="site-footer">
-  <span>wishlist.mcbflow.com · Your data stays in this browser.</span>
-  <span class="footer-links">
-    <button type="button" id="releaseNotesFooterBtn">Release notes</button>
-    <button type="button" id="cookieBannerReopenBtn">Privacy &amp; storage</button>
-    <button type="button" id="privacyFooterBtn">Privacy Policy</button>
-    <button type="button" id="termsFooterBtn">Terms of Use</button>
-  </span>
-</footer>
 </div><!-- /.mb-main -->
 
 <nav class="bnav" id="bnav" aria-label="Sections">
-  <button type="button" data-tab="wishlist" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-list"/></svg><span>My list</span></button>
-  <button type="button" data-tab="purchased"><svg class="i" aria-hidden="true"><use href="#i-bought"/></svg><span>Purchased</span></button>
-  <button type="button" data-tab="faq"><svg class="i" aria-hidden="true"><use href="#i-help"/></svg><span>FAQ</span></button>
-  <button type="button" id="bnMoreBtn" aria-expanded="false" aria-controls="bnSheet"><svg class="i" aria-hidden="true"><use href="#i-more"/></svg><span>More</span></button>
+  <button type="button" data-tab="wishlist" aria-current="page"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span>My list</span></button>
+  <button type="button" data-tab="purchased"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/><path d="m9.5 13.5 2 2 3.5-4"/></svg><span>Purchased</span></button>
+  <button type="button" data-tab="help"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.3a2.8 2.8 0 1 1 3.9 2.6c-.7.3-1.2 1-1.2 1.8v.6"/><path d="M12 17.3h.01"/></svg><span>Help</span></button>
+  <button type="button" id="bnMoreBtn" aria-expanded="false" aria-controls="bnSheet"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" stroke="none" aria-hidden="true" focusable="false"><circle cx="5.5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="18.5" cy="12" r="1.7"/></svg><span>More</span></button>
 </nav>
 <div class="bn-sheet" id="bnSheet" hidden>
+  <button type="button" class="bn-item" data-sheet="settings"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19.00 10.32 L21.51 10.72 L21.51 13.28 L19.00 13.68 L18.14 15.76 L19.63 17.82 L17.82 19.63 L15.76 18.14 L13.68 19.00 L13.28 21.51 L10.72 21.51 L10.32 19.00 L8.24 18.14 L6.18 19.63 L4.37 17.82 L5.86 15.76 L5.00 13.68 L2.49 13.28 L2.49 10.72 L5.00 10.32 L5.86 8.24 L4.37 6.18 L6.18 4.37 L8.24 5.86 L10.32 5.00 L10.72 2.49 L13.28 2.49 L13.68 5.00 L15.76 5.86 L17.82 4.37 L19.63 6.18 L18.14 8.24Z"/><circle cx="12" cy="12" r="3"/></svg>Settings</button>
   <button type="button" class="bn-item" data-sheet="search"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>Search</button>
-  <button type="button" class="bn-item" data-sheet="release"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg>Release notes</button>
-  <button type="button" class="bn-item" data-sheet="storage"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg>Privacy &amp; storage</button>
+  <button type="button" class="bn-item" data-sheet="release"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg>What’s new</button>
   <button type="button" class="bn-item" data-sheet="privacy"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg>Privacy Policy</button>
   <button type="button" class="bn-item" data-sheet="terms"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg>Terms of Use</button>
 </div>
@@ -1289,38 +1238,10 @@ dialog.mb-share::backdrop{background:var(--scrim)}
   </div>
 </div>
 
-<div class="modal-overlay" id="onboardingOverlay" hidden>
-  <div class="modal sm" role="dialog" aria-modal="true" aria-labelledby="obTitle" style="max-width:440px">
-    <div class="ob-head">
-      <span class="logo lg" aria-hidden="true"><svg class="logo-mark"><use href="#i-logo"/></svg></span>
-      <div>
-        <h2 id="obTitle">Welcome to wishlist.mcbflow.com</h2>
-        <p class="modal-sub" style="margin-bottom:0">One list for everything you plan to buy, with totals, need-by dates, target prices, and a cart for checking out across stores.</p>
-      </div>
-    </div>
-    <ul class="onboarding-list">
-      <li>Browse the sample items to see how it works</li>
-      <li>Everything saves to your browser. Nothing leaves your device</li>
-      <li>Hit <strong>Add item</strong> when you're ready to start your own list</li>
-    </ul>
-    <div class="field">
-      <span id="obThemeLbl">Appearance</span>
-      <div class="segv" role="group" aria-labelledby="obThemeLbl" id="obTheme">
-        <button type="button" class="chip" data-theme-pick="light" aria-pressed="true"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>Light</button>
-        <button type="button" class="chip" data-theme-pick="dark" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg>Dark</button>
-      </div>
-    </div>
-    <p class="hint" style="font-size:13px">Have a backup file? <button type="button" class="linkbtn" id="obImportBtn">Import it now</button><span id="obSyncWrap" hidden> · Use Wishlist on another device? <button type="button" class="linkbtn" id="obSyncBtn">Sign in to sync</button></span></p>
-    <div class="modal-actions">
-      <div class="right"><button type="button" class="btn primary" id="onboardingDismissBtn">Get started</button></div>
-    </div>
-  </div>
-</div>
-
 <div class="modal-overlay" id="searchOverlay" hidden>
   <div class="modal search-modal" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
     <h2 id="searchTitle">Search</h2>
-    <p class="modal-sub">Search your wishlist items and the FAQ.</p>
+    <p class="modal-sub">Search your wishlist items and Help.</p>
     <label class="search"><span class="sr-only">Search</span><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="siteSearchInput" placeholder="Search…"></label>
     <div class="search-results" id="siteSearchResults"></div>
     <div class="modal-actions"><div class="right"><button type="button" class="btn" id="searchCloseBtn">Close</button></div></div>
@@ -1332,7 +1253,20 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     <h2 id="relTitle">Release notes</h2>
     <div class="release-list">
       <div class="release-entry">
-        <div class="rel-head"><span class="rel-version">v1.4</span><span class="pill">Latest</span><span class="rel-date">Oct 15, 2026</span></div>
+        <div class="rel-head"><span class="rel-version">v1.5</span><span class="pill">Latest</span><span class="rel-date">Oct 16, 2026</span></div>
+        <ul>
+          <li>New Settings page (gear, bottom of the sidebar; first item under More on phones): theme, account and sync, list layout, backups, install and app info in one place</li>
+          <li>Account button in the top bar: sign in, or see your profile picture and sync status. Pick a screen name and one of the profile pictures under Edit profile, and turn off "Keep me signed in" on a shared computer</li>
+          <li>A greeting above My list ("Good morning", with your name when you're signed in)</li>
+          <li>New welcome screen, the same in every mcbflow.com app: what Wishlist does, light or dark, then start with the sample list or an empty one. You can sign in or import a backup from it too</li>
+          <li>Clearer Data menu: every item says what it does, and the new Export All (ZIP) saves your backup, a spreadsheet and your photos in one file. Import Backup reads JSON or ZIP files</li>
+          <li>Tap an item photo to see it full size, with arrows to page through the photos on screen</li>
+          <li>Signed in and syncing: no backup warnings. The backup chip reads "Synced"</li>
+          <li>Even top bar (every button the same height), the name style "Wishlist ∙ mcbflow.com", the standard gear and help icons, and a short footer with What's new, Privacy and Terms. FAQ is now called Help</li>
+        </ul>
+      </div>
+      <div class="release-entry">
+        <div class="rel-head"><span class="rel-version">v1.4</span><span class="rel-date">Oct 15, 2026</span></div>
         <ul>
           <li>New: optional sync across devices. Data → Sync across devices signs in with a free mcbflow.com account; your items, prices and history then match on every device you sign in on</li>
           <li>Item photos stay on the device where you added them; other devices show the item without its photo. Sample items never sync</li>
@@ -1342,7 +1276,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       <div class="release-entry">
         <div class="rel-head"><span class="rel-version">v1.3</span><span class="rel-date">Oct 14, 2026</span></div>
         <ul>
-          <li>Moved to wishlist.mcbflow.com. Data saved at mbwishlist.online doesn't carry over: export a backup there and import it here</li>
+          <li>Moved to wishlist.mcbflow.com. Data saved at the old address doesn't carry over: export a backup there and import it here</li>
           <li>Storage names simplified</li>
         </ul>
       </div>
@@ -1363,7 +1297,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
         </ul>
       </div>
       <div class="release-entry">
-        <div class="rel-head"><span class="rel-version">v1.9</span><span class="rel-date">Oct 13, 2026</span></div>
+        <div class="rel-head"><span class="rel-version">Build 1.9</span><span class="rel-date">Oct 13, 2026</span></div>
         <ul>
           <li>New layout shared with the other mb apps: sections in a left sidebar (a bottom bar on phones), and the logo always takes you back to your list</li>
           <li>Share your progress from the Purchased tab as an image made on your device. Amounts stay hidden unless you turn them on</li>
@@ -1374,7 +1308,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
         </ul>
       </div>
       <div class="release-entry">
-        <div class="rel-head"><span class="rel-version">v1.8</span><span class="rel-date">Oct 13, 2026</span></div>
+        <div class="rel-head"><span class="rel-version">Build 1.8</span><span class="rel-date">Oct 13, 2026</span></div>
         <ul>
           <li>Import a spreadsheet (CSV) with column matching you can check before importing</li>
           <li>Price history per item: lowest recorded price and up/down since last change</li>
@@ -1388,7 +1322,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
         </ul>
       </div>
       <div class="release-entry">
-        <div class="rel-head"><span class="rel-version">v1.7</span><span class="rel-date">Oct 12, 2026</span></div>
+        <div class="rel-head"><span class="rel-version">Build 1.7</span><span class="rel-date">Oct 12, 2026</span></div>
         <ul>
           <li>Photos stored in IndexedDB instead of the main localStorage list (more reliable for larger lists)</li>
           <li>Faster list updates: debounced search, cached filters, lighter qty/selection updates</li>
@@ -1398,13 +1332,13 @@ dialog.mb-share::backdrop{background:var(--scrim)}
         </ul>
       </div>
       <div class="release-entry">
-        <div class="rel-head"><span class="rel-version">v1.6</span><span class="rel-date">Sep 28, 2026</span></div>
+        <div class="rel-head"><span class="rel-version">Build 1.6</span><span class="rel-date">Sep 28, 2026</span></div>
         <ul>
           <li>New app icon and branding polish</li>
         </ul>
       </div>
       <div class="release-entry">
-        <div class="rel-head"><span class="rel-version">v1.5</span><span class="rel-date">Sep 28, 2026</span></div>
+        <div class="rel-head"><span class="rel-version">Build 1.5</span><span class="rel-date">Sep 28, 2026</span></div>
         <ul>
           <li>Utility theme, Data menu, grid/table views, backup status chip</li>
         </ul>
@@ -1414,23 +1348,17 @@ dialog.mb-share::backdrop{background:var(--scrim)}
   </div>
 </div>
 
-<div class="notice" id="cookieBanner" role="region" aria-label="Privacy and storage" hidden>
-  <b>Privacy &amp; storage</b>
-  <p>This list saves to your browser's local storage and IndexedDB, not cookies. Nothing is sent to a server or shared with anyone, unless you choose to sign in to sync.</p>
-  <div class="actions"><button type="button" class="btn primary sm" id="cookieAcceptBtn">Got it</button></div>
-</div>
-
 <div class="modal-overlay" id="privacyOverlay" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="privTitle">
     <h2 id="privTitle">Privacy Policy</h2>
     <div class="legal-text">
-      <p class="legal-updated">Last updated: October 15, 2026</p>
+      <p class="legal-updated">Last updated: October 16, 2026</p>
       <p>wishlist.mcbflow.com is a free tool built by one person. You don't need an account, and nothing is sent to a server unless you choose to sign in to sync.</p>
       <h3>What's stored, and where</h3>
       <p>Item details are saved in local storage. Photos are saved in IndexedDB on your device. Backup file handles (when supported) are also kept in IndexedDB. Unless you sign in to sync, nothing is sent to a server.</p>
       <h3>Optional sync</h3>
-      <p>If you sign in with a free mcbflow.com account (Data → Sync across devices), your items (names, prices and price history, links, notes, dates and status) are copied to your account so your other devices match. <b>Photos are never uploaded</b>; they stay on the device where you added them. Sample items, your theme, view and backup details stay on each device. The account database is run by Supabase (servers in the eastern United States); only your account can read your records. While signed in, this site also keeps your sign-in and a sync record (wishlist.sync) in local storage. Signing out stops syncing and keeps your list on this device. Export or delete synced data, or delete your account, on the <a href="https://mcbflow.com/account.html" target="_blank" rel="noopener">mcbflow.com account page</a>.</p>
-      <p>Keys used include: <code>wishlist</code>, <code>wishlist.theme</code>, <code>wishlist.view</code>, <code>wishlist.lastBackup</code>, <code>wishlist.privacyAck</code>, <code>wishlist.onboarded</code>, and IndexedDB database <code>wishlist</code>.</p>
+      <p>If you sign in with a free mcbflow.com account (Data → Sync across devices), your items (names, prices and price history, links, notes, dates and status) are copied to your account so your other devices match. <b>Photos are never uploaded</b>; they stay on the device where you added them. Sample items, your theme, view and backup details stay on each device. The account database is run by Supabase (servers in the eastern United States); only your account can read your records. Your screen name and profile picture, if you choose them under Edit profile, are saved on your account so every mcbflow.com app shows the same ones. While signed in, this site also keeps your sign-in and a sync record (wishlist.sync) in local storage; with "Keep me signed in" turned off, the sign-in is kept in session storage instead and ends when the browser closes. Signing out stops syncing and keeps your list on this device. Export or delete synced data, or delete your account, on the <a href="https://mcbflow.com/account.html" target="_blank" rel="noopener">mcbflow.com account page</a>.</p>
+      <p>Keys used include: <code>wishlist</code>, <code>wishlist.theme</code>, <code>wishlist.view</code>, <code>wishlist.lastBackup</code>, <code>wishlist.privacyAck</code>, <code>wishlist.onboarded</code>, <code>wishlist.keepSignedIn</code>, and IndexedDB database <code>wishlist</code>.</p>
       <p>To work offline, the app keeps a copy of its own page files (not your list) in the browser's Cache Storage. Spreadsheets you import are read in your browser and never uploaded.</p>
       <p>Share images are drawn on your device. They go nowhere unless you save them or pick somewhere to share them, and they never include item names.</p>
       <h3>What this app does not do</h3>
@@ -1451,7 +1379,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     <h2 id="termsTitle">Terms of Use</h2>
     <div class="legal-text">
       <p class="legal-updated">Last updated: October 12, 2026</p>
-      <p>This app is for personal, non-commercial use and is provided "as is." Your data lives only in your browser. Back up regularly.</p>
+      <p>This app is for personal, non-commercial use and is provided "as is." Your data lives in your browser unless you sign in to sync. Back up regularly.</p>
       <h3>Contact</h3>
       <p><a href="mailto:hewbroyer@gmail.com">hewbroyer@gmail.com</a></p>
     </div>
@@ -1460,6 +1388,44 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 </div>
 
 <button type="button" class="totop" id="backToTopBtn" aria-label="Back to top" title="Back to top"><svg class="i" aria-hidden="true"><use href="#i-up"/></svg></button>
+<!-- WELCOME SCREEN (MB Suite v3.3 .mbw): Welcome → Pick a look → How to start (sample list or empty list) + Sign in / Import -->
+<div class="mbw" id="welcome" role="dialog" aria-modal="true" aria-labelledby="mbwTitle" hidden>
+  <div class="mbw-card">
+    <header class="mbw-head">
+      <span class="mbw-step" id="mbwStep">Step 1 of 3</span>
+      <span class="mbw-head-a"><span id="mbwAcct"></span><button class="mbw-link" type="button" id="mbwSkip">Skip</button></span>
+      <div class="mbw-prog" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+    </header>
+    <div class="mbw-body" data-step="0">
+      <div class="mbw-hero"><span class="mbw-logo"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="mbwi-g1-4" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#de8a29"/><stop offset=".55" stop-color="#D97706"/><stop offset="1" stop-color="#ae5f05"/></linearGradient><clipPath id="mbwi-c1-4"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbwi-c1-4)"><rect width="64" height="64" fill="url(#mbwi-g1-4)"/><path d="M33 12h15a4 4 0 0 1 4 4v15a4 4 0 0 1-1.2 2.8L33.5 51.2a4 4 0 0 1-5.7 0L12.8 36.2a4 4 0 0 1 0-5.7L30.2 13.2A4 4 0 0 1 33 12z" fill="#fff"/><circle cx="43.5" cy="20.5" r="3.2" fill="#D97706"/><path d="M30.5 41c-4.4-3-6.8-5.2-6.8-7.8a3.5 3.5 0 0 1 6.8-1.1 3.5 3.5 0 0 1 6.8 1.1c0 2.6-2.4 4.8-6.8 7.8z" fill="#9A4F05"/></g></svg></span><div><h2 id="mbwTitle">Welcome to Wishlist</h2><p class="mbw-lead">One list for everything you plan to buy, with totals, need-by dates and target prices.</p></div></div>
+      <ul class="mbw-feats">
+        <li><span class="mbw-ic"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></span><div><b>My list</b><span>Needs and wants with prices, target prices and need-by dates.</span></div></li>
+        <li><span class="mbw-ic"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h9.6a1 1 0 0 0 1-.8L21 7H6"/></svg></span><div><b>Cart and checkout</b><span>Tick items to compare them, then buy across stores in one pass.</span></div></li>
+        <li><span class="mbw-ic"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/></svg></span><div><b>Price history</b><span>Keeps the lowest price you’ve recorded and shows if it went up or down.</span></div></li>
+        <li><span class="mbw-ic"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/><path d="m9.5 13.5 2 2 3.5-4"/></svg></span><div><b>Purchased</b><span>What you bought and what you decided against, with totals.</span></div></li>
+      </ul>
+      <p class="mbw-privacy"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><span>No account needed. Everything stays in this browser on this device unless you sign in to sync, and photos never leave it. No cookies. <button type="button" data-open="privacy">Privacy</button></span></p>
+    </div>
+    <div class="mbw-body" data-step="1" hidden>
+      <h2>Pick a look</h2><p class="mbw-lead">You can switch anytime from the top bar or Settings.</p>
+      <div class="mbw-looks" role="group" aria-label="Theme">
+        <button type="button" class="mbw-look" data-theme-set="light" aria-pressed="true"><span class="pv l" aria-hidden="true"><b class="a"></b><b></b><b></b></span><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg> Light</button>
+        <button type="button" class="mbw-look" data-theme-set="dark" aria-pressed="false"><span class="pv d" aria-hidden="true"><b class="a"></b><b></b><b></b></span><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg> Dark</button>
+      </div>
+    </div>
+    <div class="mbw-body" data-step="2" hidden>
+      <h2>How do you want to start?</h2><p class="mbw-lead" id="mbwStartLead">Sample items show how needs, wants, target prices and the cart work. They never sync, and one click clears them.</p>
+      <div class="mbw-choices" id="mbwChoices" role="group" aria-label="Start with">
+        <button type="button" class="mbw-choice" data-start="sample" aria-pressed="true"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span><b>Start with the sample list</b><small>Seven example items to try things on. Clear them from the banner when you’re done.</small></span></button>
+        <button type="button" class="mbw-choice" data-start="empty" aria-pressed="false"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg><span><b>Start with an empty list</b><small>Go straight to adding your own items with Add item.</small></span></button>
+      </div>
+      <div class="mbw-alt"><span>Moving from another device?</span>
+        <button class="mbw-btn sm" type="button" id="mbwSync"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 11a8 8 0 0 0-14.7-4.4L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.7 4.4L20 16"/><path d="M20 21v-5h-5"/></svg>Sign in to sync</button>
+        <button class="mbw-btn sm" type="button" id="mbwImport"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 20h14"/></svg>Import a backup</button></div>
+    </div>
+    <footer class="mbw-foot"><button class="mbw-btn" type="button" id="mbwBack" hidden><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</button><button class="mbw-btn pri" type="button" id="mbwNext">Next<svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></footer>
+  </div>
+</div>
 <div id="toastHost" role="status" aria-live="polite"></div>
 <template id="shareArt"><svg viewBox="0 0 640 136" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false"><circle class="b" cx="560" cy="46" r="26"/><path class="s" d="M210 150 C315 80 525 80 630 150Z"/><path class="m" d="M410 150 C485 66 635 66 710 150Z"/><path class="d" d="M530 150 C585 90 695 90 750 150Z"/><path class="n" transform="translate(470 98) rotate(-64) scale(0.5)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(480 98) rotate(-116) scale(0.4)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><circle class="r" cx="360" cy="44" r="6"/></svg></template>
 
@@ -1609,11 +1575,11 @@ dialog.mb-share::backdrop{background:var(--scrim)}
        sub: 'January to October 2026',              // one supporting line (optional)
        stats: [{ label: 'Months tracked', value: '10' }, { label: 'Savings rate', value: '22%' }],   // 0-3 (optional)
        art: document.querySelector('#share-art svg'),   // an NA-/CU- template <svg> already in the page (optional)
-       fileName: 'mbmoney-milestone.png',
+       fileName: 'money-milestone.png',
        options: [ { id: 'amounts', label: 'Show dollar amounts', value: false } ],   // optional privacy toggles
        build: function (opts) { return { headline: …, stats: … } }                  // re-builds the text when a toggle changes
      });
-   Requires on <html>: data-app-short="Money" and data-app-domain="mbmoney.online".
+   Requires on <html>: data-app-short="Money" and data-app-domain="money.mcbflow.com".
    The badge is read from the first ".brand .logo svg" in the page.
    CSP: needs img-src data: blob: (the art is drawn from a data: URL, the preview is a blob: URL). Inline it and recompute hashes if the app uses script hashes.
    ===================================================================== */
@@ -1684,8 +1650,9 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       var x = 72, y = 92;
       if (imgs[0]) g.drawImage(imgs[0], x, y - 4, 72, 72);
       g.fillStyle = C.ink; g.font = '650 34px ' + FONT; g.textBaseline = 'middle';
-      var tm = domain.match(/\.(online|mcbflow\.com)$/), tld = tm ? tm[0] : '', nm = tld ? domain.slice(0, -tld.length) : domain; g.fillText(nm, x + 92, y + 32);
-      if (tld) { var nw = g.measureText(nm).width; g.fillStyle = C.accent; g.fillText(tld, x + 92 + nw, y + 32); }
+      g.fillText(app, x + 92, y + 32);   // v3.4 wordmark: "Money ∙ mcbflow.com" (short name, muted bullet, accent mcbflow.com)
+      var nw = g.measureText(app).width; g.font = '500 30px ' + FONT; g.fillStyle = C.muted; g.fillText('  ∙  ', x + 92 + nw, y + 32);
+      var bw = g.measureText('  ∙  ').width; g.fillStyle = C.accent; g.fillText('mcbflow.com', x + 92 + nw + bw, y + 32);
       // kicker + headline + sub
       g.textBaseline = 'alphabetic'; y = 300;
       if (d.kicker) { g.fillStyle = C.accent; g.font = '700 30px ' + FONT; g.fillText(String(d.kicker).toUpperCase(), x, y); y += 26; }
@@ -1724,7 +1691,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       // footer: where it came from (this is what helps the app grow)
       g.fillStyle = C.ink2; g.font = '600 28px ' + FONT;
       g.fillText((d.date ? d.date + '  ·  ' : '') + 'Made with ' + domain, x, W - 64);
-      g.fillStyle = C.muted; g.font = '400 24px ' + FONT; g.fillText('Free · No account · Your data stays on your device', x, W - 30);
+      g.fillStyle = C.muted; g.font = '400 24px ' + FONT; g.fillText('Free · No account needed · No tracking', x, W - 30);   // true with or without the optional sync account
       return c;
     });
   }
@@ -1777,6 +1744,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 })();
 </script>
 <script src="mb-sync.js"></script>
+<script src="mb-files.js"></script>
 <script>
 (function(){
   "use strict";
@@ -2298,8 +2266,8 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     var color = categoryColor(it.category);
     var letter = escapeHtml((it.name||'?').charAt(0).toUpperCase());
     var img = isSafeImageSrc(it.imageDataUrl) ? it.imageDataUrl : null;
-    return img
-      ? '<img src="'+escapeHtml(img)+'" alt="" data-fallback-letter="'+letter+'" data-fallback-color="'+color+'">'
+    return img   // v1.5: a photo is a button that opens it full size in the viewer (MBFiles.view)
+      ? '<button type="button" class="thumb-btn" data-photo="'+escapeHtml(it.id)+'" aria-label="View photo of '+escapeHtml(it.name||'item')+'"><img src="'+escapeHtml(img)+'" alt="" data-fallback-letter="'+letter+'" data-fallback-color="'+color+'"></button>'
       : '<span class="letter" style="--cc:'+color+'">'+letter+'</span>';
   }
   function starsHtml(n){
@@ -2510,7 +2478,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
   }
 
   function renderDemoBanner(){
-    $('demoBanner').hidden = activeTab === 'faq' || !items.some(function(i){ return i.isDemo; });
+    $('demoBanner').hidden = (activeTab !== 'wishlist' && activeTab !== 'purchased') || !items.some(function(i){ return i.isDemo; });
   }
   function renderCounts(){
     var a = activeItems().length, p = items.length - a;
@@ -2577,6 +2545,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     renderReviewBanner();
     renderCartBar();
     renderBackupStatus();
+    renderSettings();
   }
 
   function openModal(id){
@@ -2645,7 +2614,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     var prev = $('imagePreview');
     var removeBtn = $('removeImageBtn');
     if(editingImageDataUrl){
-      prev.innerHTML = '<img src="'+escapeHtml(editingImageDataUrl)+'" alt="">';
+      prev.innerHTML = '<button type="button" class="thumb-btn" data-photo="__editing__" aria-label="View photo full size"><img src="'+escapeHtml(editingImageDataUrl)+'" alt=""></button>';
       removeBtn.hidden = false;
     } else {
       prev.textContent = '—';
@@ -3028,7 +2997,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 
   function backupJson(){
     // full backup includes images from memory
-    return JSON.stringify({ app:'mbwishlist', format:2, exportedAt:new Date().toISOString(), items:items }, null, 2);
+    return JSON.stringify({ app:'wishlist', format:2, exportedAt:new Date().toISOString(), items:items }, null, 2);
   }
   function toCsv(){
     var headers = ["Name","Category","Priority","Status","Stars","Need By","Unit Cost","Target Price","Quantity","Total","Purchase URL","Notes","Purchased","Date Purchased","Not Buying","Lowest Recorded"];
@@ -3047,7 +3016,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
   }
 
   function downloadFile(filename, data, mime){
-    var blob = new Blob([data], { type: mime });
+    var blob = data instanceof Blob ? data : new Blob([data], { type: mime });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url; a.download = filename;
@@ -3057,6 +3026,45 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
   }
   function datedName(base, ext){ return base + '-' + todayISO() + '.' + ext; }
+
+  /* ---- v1.5: Export All (ZIP) = the JSON backup + the spreadsheet + every photo + a README, in one file ---- */
+  function dataUrlToBlob(du){
+    var m = /^data:([^;,]+);base64,(.*)$/.exec(du || '');
+    if(!m) return null;
+    var bin = atob(m[2]), u8 = new Uint8Array(bin.length);
+    for(var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    return new Blob([u8], { type: m[1] });
+  }
+  function photoExt(du){ var m = /^data:image\/(png|jpe?g|gif|webp)/i.exec(du || ''); return m ? (m[1].toLowerCase() === 'jpeg' ? 'jpg' : m[1].toLowerCase()) : 'jpg'; }
+  function fileSafe(name){ return String(name || 'item').replace(/[\\\/:*?"<>|\x00-\x1f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60) || 'item'; }
+  async function exportZipAll(){
+    closeDataMenu();
+    if(!window.MBFiles){ toast('ZIP export isn\u2019t available in this browser. Use Export All (JSON) instead.'); return; }
+    var photos = items.filter(function(it){ return isSafeImageSrc(it.imageDataUrl); });
+    var entries = [
+      { name: 'wishlist-backup.json', data: backupJson() },
+      { name: 'wishlist.csv', data: toCsv() }
+    ];
+    photos.forEach(function(it){
+      var b = dataUrlToBlob(it.imageDataUrl);
+      if(b) entries.push({ name: 'files/' + it.id + '-' + fileSafe(it.name) + '.' + photoExt(it.imageDataUrl), data: b });
+    });
+    entries.push({ name: 'README.txt', data: [
+      'Wishlist (wishlist.mcbflow.com) export, ' + new Date().toLocaleString('en-US'),
+      '',
+      'wishlist-backup.json  Complete backup of every item (photos included). Restore it with Data > Import Backup.',
+      'wishlist.csv          Spreadsheet copy of every item for Excel, Numbers or Google Sheets.',
+      'files/                ' + plural(photos.length, 'item photo') + ', named <item id>-<item name>.',
+      '',
+      'Import this ZIP file as it is with Data > Import Backup: items already on your list are skipped.'
+    ].join('\r\n') });
+    try{
+      var blob = await MBFiles.zip(entries);
+      downloadFile(datedName('wishlist-backup','zip'), blob, 'application/zip');
+      markBackedUp();
+      toast('ZIP saved to your Downloads folder.');
+    }catch(e){ toast('Couldn\u2019t make the ZIP file. Try Export All (JSON) instead.'); }
+  }
 
   async function writeTo(handle, text){
     var w = await handle.createWritable();
@@ -3165,7 +3173,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
   async function importBackup(){
     closeDataMenu();
     if(fsOpen()){
-      var opts = { multiple:false, types:[{ description:'JSON backup', accept:{ 'application/json':['.json'] } }] };
+      var opts = { multiple:false, types:[{ description:'Wishlist backup (JSON or ZIP)', accept:{ 'application/json':['.json'], 'application/zip':['.zip'] } }] };
       if(handles.json) opts.startIn = handles.json;
       var picked = null;
       try{ picked = await window.showOpenFilePicker(opts); }
@@ -3223,22 +3231,52 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     return [String(it.name||'').trim().toLowerCase(), String(it.purchaseUrl||''), String(it.dateAdded||'').slice(0,19)].join('|');
   }
   function importJsonFile(file){
+    if(/\.zip$/i.test(file.name || '') || /zip/i.test(file.type || '')){ importZipFile(file); return; }
     var reader = new FileReader();
-    reader.onload = function(e){
-      var clean;
-      try{
-        var parsed = JSON.parse(e.target.result);
-        var list = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.items) ? parsed.items : null);
-        if(!list) throw new Error('bad format');
-        clean = list.map(sanitizeImportedItem).filter(Boolean);
-        if(!clean.length) throw new Error('nothing usable');
-      }catch(err){
-        toast("That file doesn't look like a backup for this list.");
-        return;
-      }
-      mergeImported(clean.map(normalizeItem), itemSig, 'backup');
-    };
+    reader.onload = function(e){ importJsonText(e.target.result, null); };
     reader.readAsText(file);
+  }
+  function importJsonText(text, photos){
+    var clean;
+    try{
+      var parsed = JSON.parse(text);
+      var list = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.items) ? parsed.items : null);
+      if(!list) throw new Error('bad format');
+      if(photos) list = list.map(function(p){   // ZIP: photos from files/ fill in items whose JSON has none
+        return (p && !isSafeImageSrc(p.imageDataUrl) && photos[p.id]) ? Object.assign({}, p, { imageDataUrl: photos[p.id] }) : p;
+      });
+      clean = list.map(sanitizeImportedItem).filter(Boolean);
+      if(!clean.length) throw new Error('nothing usable');
+    }catch(err){
+      toast("That file doesn't look like a backup for this list.");
+      return;
+    }
+    mergeImported(clean.map(normalizeItem), itemSig, 'backup');
+  }
+  function blobToDataUrl(b){
+    return new Promise(function(res){ var r = new FileReader(); r.onload = function(){ res(r.result); }; r.onerror = function(){ res(null); }; r.readAsDataURL(b); });
+  }
+  async function importZipFile(file){
+    if(!window.MBFiles){ toast('ZIP files can\u2019t be read in this browser. Import the JSON backup instead.'); return; }
+    var entries;
+    try{ entries = await MBFiles.unzip(file); }catch(e){ toast("Couldn't open that ZIP file."); return; }
+    var jsons = entries.filter(function(en){ return /\.json$/i.test(en.name) && !/(^|\/)__MACOSX\//.test(en.name); });
+    var main = jsons.find(function(en){ return /(^|\/)[^\/]*-backup\.json$/i.test(en.name); }) || (jsons.length === 1 ? jsons[0] : null);
+    if(!main){ toast("That ZIP file doesn't hold a Wishlist backup."); return; }
+    var photos = {};
+    for(var i = 0; i < entries.length; i++){
+      var m = /(^|\/)files\/([a-z0-9]+)-[^\/]*\.(jpe?g|png|gif|webp)$/i.exec(entries[i].name);
+      if(!m) continue;
+      try{
+        var b = await entries[i].blob();
+        var mime = 'image/' + (m[3].toLowerCase() === 'jpg' ? 'jpeg' : m[3].toLowerCase());
+        var du = await blobToDataUrl(b.type === mime ? b : new Blob([b], { type: mime }));
+        if(isSafeImageSrc(du)) photos[m[2]] = du;
+      }catch(e){}
+    }
+    var text;
+    try{ text = await main.text(); }catch(e){ toast("Couldn't read the backup inside that ZIP file."); return; }
+    importJsonText(text, photos);
   }
   function mergeImported(clean, sigFn, label){
     var have = {};
@@ -3478,35 +3516,94 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     if(days === 1) return 'yesterday';
     return days + ' days ago';
   }
+  /* ---- Data menu + Settings "Backup & data" (MB Suite v3.3 .mb-dm: same items, words and order in every app) ---- */
+  var UIC = {
+    save:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/>',
+    sync:'<path d="M20 11a8 8 0 0 0-14.7-4.4L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.7 4.4L20 16"/><path d="M20 21v-5h-5"/>',
+    json:'<path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M10 12c-1 0-1 .5-1 1.5S8.5 15 8 15c.5 0 1 .5 1 1.5s0 1.5 1 1.5M14 12c1 0 1 .5 1 1.5s.5 1.5 1 1.5c-.5 0-1 .5-1 1.5s0 1.5-1 1.5"/>',
+    csv:'<rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 10h18M3 15h18M9 4v16"/>',
+    zip:'<path d="M4 7h16v13H4z"/><path d="M3 4h18v3H3zM10 11h4"/>',
+    imp:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 20h14"/>',
+    reset:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+    trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'
+  };
+  function uic(paths, size){ size = size || 18; return '<svg class="uic" viewBox="0 0 24 24" width="'+size+'" height="'+size+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+paths+'</svg>'; }
+  function dataListHtml(menu){
+    var r = menu ? ' role="menuitem"' : '', sec = menu ? ' role="presentation"' : '';
+    var it = function(cls, act, icon, title, desc, extra){
+      return '<button type="button" class="mb-dm-it'+cls+'"'+r+' data-act="'+act+'">'+uic(UIC[icon])+'<span class="t"><b>'+title+'</b><small>'+desc+'</small></span>'+(extra||'')+'</button>';
+    };
+    return it(' is-key dm-save', 'backup', 'save', 'Save backup now', 'Updates your backup file in one click. Best for regular backups.', '<kbd class="dm-kbd">Ctrl+S</kbd>') +
+      it(' dm-sync', 'sync', 'sync', 'Sync across devices…', 'Free, optional account. Keeps your phone and computer the same.') +
+      '<div class="mb-dm-sec"'+sec+'>Export</div>' +
+      it('', 'export-json', 'json', 'Export All (JSON)…', 'Complete backup of everything. Best for restoring or moving to another browser.') +
+      it('', 'export-csv', 'csv', 'Export All (CSV)…', 'Spreadsheet copy for Excel, Numbers or Google Sheets. Best for totals and reports.') +
+      it('', 'export-zip', 'zip', 'Export All (ZIP)…', 'Backup, spreadsheets and your photos in one file. Best for archiving everything.') +
+      '<div class="mb-dm-sec"'+sec+'>Import</div>' +
+      it('', 'import', 'imp', 'Import Backup…', 'Restore from a JSON or ZIP file. Adds what’s missing and skips items already on your list.') +
+      it('', 'import-csv', 'csv', 'Import Spreadsheet (CSV)…', 'Bring in a list from Excel or Google Sheets. You check the columns first.') +
+      '<div class="mb-dm-status"'+sec+'><span class="sq"></span><span class="dm-st">Never backed up</span></div>' +
+      '<p class="mb-dm-note"></p><hr class="mb-dm-sep">' +
+      it(' danger', 'reset', 'reset', 'Clear wishlist items…', 'Removes every item and puts the sample list back. Theme and settings stay.') +
+      it(' danger dm-clear', 'clear-all', 'trash', 'Clear all data…', 'Deletes everything in this browser. You can save a backup first.');
+  }
+  function buildDataLists(){
+    $('dataMenu').innerHTML = dataListHtml(true);
+    $('setDataList').innerHTML = dataListHtml(false);
+    if(/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)){
+      document.querySelectorAll('.dm-kbd').forEach(function(k){ k.textContent = '⌘S'; });
+    }
+  }
+  function shortDate(d){ return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
   function renderBackupStatus(){
     var d = lastBackup();
+    var st = SYNC ? SYNC.status() : null, signedIn = !!(st && st.signedIn), quiet = !!(st && st.quietBackups);
     var hasOwn = items.some(function(i){ return !i.isDemo; });
-    var stale = d ? (Date.now() - d.getTime() > 7*86400000) : hasOwn;
+    // v1.5 §9: signed in and syncing fine → no backup nags (chip neutral, no dot, no amber)
+    var stale = !quiet && (d ? (Date.now() - d.getTime() > 7*86400000) : hasOwn);
     var text = d ? 'Backed up ' + relTime(d) : 'Never backed up';
     var chip = $('bkChip');
-    $('bkChipText').textContent = text;
+    $('bkChipText').textContent = quiet ? 'Synced' : text;
     chip.classList.toggle('warn', stale);
-    chip.title = (d ? 'Last backup: ' + d.toLocaleString() : 'No backup saved yet') + '. Click to save a backup now.';
-    $('menuToggle').classList.toggle('stale', stale);
+    chip.title = quiet
+      ? 'Signed in and syncing' + (d ? '. Last file backup: ' + d.toLocaleString() : '') + '. Click to save a file backup too.'
+      : (d ? 'Last backup: ' + d.toLocaleString() : 'No backup saved yet') + '. Click to save a backup now.';
+    $('dataDot').hidden = !stale;
 
-    var st = $('bkStatusLine');
-    st.innerHTML = '<span class="'+(stale?'st-warn':'')+'">'+escapeHtml(text)+'</span>' + (d ? ' · ' + escapeHtml(d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})) : '');
+    var status, cls = '';
+    if(quiet){ status = 'Synced to your account · last file backup ' + (d ? shortDate(d) : 'none yet'); cls = 'ok'; }
+    else if(d){ status = text + ' · ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); cls = stale ? 'warn' : 'ok'; }
+    else { status = text; cls = stale ? 'warn' : ''; }
+    var saveDesc = !fsSave() ? 'Downloads a backup file in one click. Best for regular backups.'
+      : handles.json ? 'Updates your backup file in one click. Best for regular backups.'
+      : 'Choose where to keep your backup file. After that it’s one click.';
+    var note = signedIn ? 'Synced to your mcbflow.com account (photos stay on each device). A file backup now and then is still a good idea.'
+      : 'Your data is stored in this browser on this device. Clearing your browser data deletes it, so keep a backup.';
+    document.querySelectorAll('#dataMenu, #setDataList').forEach(function(box){
+      if(!box.firstChild) return;
+      box.querySelector('.dm-save small').textContent = saveDesc;
+      var sy = box.querySelector('.dm-sync');
+      sy.hidden = !window.MBSync;
+      sy.querySelector('b').textContent = signedIn ? 'Sync: ' + st.label : 'Sync across devices…';
+      sy.querySelector('small').textContent = signedIn ? 'Signed in as ' + st.email : 'Free, optional account. Keeps your phone and computer the same.';
+      var se = box.querySelector('.mb-dm-status');
+      se.classList.toggle('ok', cls === 'ok'); se.classList.toggle('warn', cls === 'warn');
+      se.querySelector('.dm-st').textContent = status;
+      box.querySelector('.mb-dm-note').textContent = note;
+      box.querySelector('.dm-clear small').textContent = signedIn ? 'Deletes everything here and your synced copy.' : 'Deletes everything in this browser. You can save a backup first.';
+    });
 
-    var fileLine = $('bkFileLine'), csvLine = $('bkCsvLine');
+    // Settings: where "Save backup now" writes
+    var ft = $('setFileTxt'), fb = $('setFileBtn');
     if(!fsSave()){
-      fileLine.innerHTML = 'This browser saves backups to your Downloads folder.';
-      $('saveNowSub').textContent = 'Downloads a dated JSON backup';
-      csvLine.hidden = true;
+      ft.textContent = 'This browser saves backups to your Downloads folder as wishlist-backup-<date>.json.';
+      fb.hidden = true;
     } else if(handles.json){
-      fileLine.innerHTML = '<b>' + escapeHtml(handles.json.name) + '</b>, in the folder you chose · <button type="button" class="linkbtn" id="changeLocBtn">Change location…</button>';
-      $('saveNowSub').textContent = 'Overwrites ' + handles.json.name + (handles.csv ? ' + ' + handles.csv.name : '');
-      csvLine.hidden = !handles.csv;
-      if(handles.csv) csvLine.innerHTML = 'CSV: <b>' + escapeHtml(handles.csv.name) + '</b>, refreshed on each save';
+      ft.textContent = handles.json.name + ', in the folder you chose.' + (handles.csv ? ' The spreadsheet ' + handles.csv.name + ' is refreshed on each save too.' : '');
+      fb.hidden = false; fb.textContent = 'Change location…';
     } else {
-      fileLine.innerHTML = 'No backup file chosen yet. Save backup now will ask where to put it.';
-      $('saveNowSub').textContent = 'Choose where to save it the first time';
-      csvLine.hidden = !handles.csv;
-      if(handles.csv) csvLine.innerHTML = 'CSV: <b>' + escapeHtml(handles.csv.name) + '</b>';
+      ft.textContent = 'No backup file chosen yet. Save backup now asks where to put it.' + (handles.csv ? ' Spreadsheet: ' + handles.csv.name + '.' : '');
+      fb.hidden = false; fb.textContent = 'Choose location…';
     }
   }
   async function loadHandles(){
@@ -3518,15 +3615,40 @@ dialog.mb-share::backdrop{background:var(--scrim)}
   }
 
   function openDataMenu(){
-    $('settingsMenu').hidden = false;
-    $('menuToggle').setAttribute('aria-expanded','true');
+    $('dataMenu').hidden = false;
+    $('dataBtn').setAttribute('aria-expanded','true');
     renderBackupStatus();
-    setTimeout(function(){ $('saveNowBtn').focus(); }, 0);
+    setTimeout(function(){ var f = $('dataMenu').querySelector('.mb-dm-it:not([hidden])'); if(f) f.focus(); }, 0);
   }
-  function closeDataMenu(){
-    if($('settingsMenu').hidden) return;
-    $('settingsMenu').hidden = true;
-    $('menuToggle').setAttribute('aria-expanded','false');
+  function closeDataMenu(focusBtn){
+    if($('dataMenu').hidden) return;
+    $('dataMenu').hidden = true;
+    $('dataBtn').setAttribute('aria-expanded','false');
+    if(focusBtn) $('dataBtn').focus();
+  }
+  function clearSamples(){
+    var demos = items.filter(function(i){ return i.isDemo; });
+    if(!demos.length) return;
+    items = items.filter(function(i){ return !i.isDemo; });
+    bumpRevision();
+    save();
+    demos.forEach(function(d){ idbDel(IDB_IMAGES, d.id); });
+    renderAll();
+  }
+  function onDataAct(e){
+    var b = e.target.closest('[data-act]'); if(!b) return;
+    var a = b.dataset.act;
+    if(a === 'backup') saveBackupNow();
+    else if(a === 'sync'){ closeDataMenu(); openSync(); }
+    else if(a === 'export-json') exportJsonAs();
+    else if(a === 'export-csv') exportCsvAs();
+    else if(a === 'export-zip') exportZipAll();
+    else if(a === 'import') importBackup();
+    else if(a === 'import-csv'){ closeDataMenu(); $('importCsvInput').click(); }
+    else if(a === 'reset') resetItems();
+    else if(a === 'clear-all') clearAllData();
+    else if(a === 'clear-samples'){ clearSamples(); toast('Sample items cleared.'); }
+    else if(a === 'change-loc') exportJsonAs();
   }
 
   function wire(){
@@ -3641,7 +3763,6 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     $('reviewDropBtn').onclick = function(){ reviewAct('drop'); };
     $('reviewEditBtn').onclick = function(){ reviewAct('edit'); };
     $('reviewCloseBtn').onclick = finishReview;
-    $('importCsvBtn').onclick = function(){ closeDataMenu(); $('importCsvInput').click(); };
     $('importCsvInput').addEventListener('change', function(e){
       if(e.target.files[0]) importCsvFile(e.target.files[0]);
       e.target.value = '';
@@ -3665,34 +3786,22 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     $('checkoutDoneBtn').onclick = closeCheckout;
     $('checkoutOverlay').addEventListener('click', function(e){ if(e.target===this) closeCheckout(); });
 
-    $('clearDemoBtn').onclick = function(){
-      var demos = items.filter(function(i){ return i.isDemo; });
-      items = items.filter(function(i){ return !i.isDemo; });
-      bumpRevision();
-      save();
-      demos.forEach(function(d){ idbDel(IDB_IMAGES, d.id); });
-      renderAll();
-    };
+    $('clearDemoBtn').onclick = clearSamples;
 
-    $('menuToggle').onclick = function(e){
+    $('dataBtn').onclick = function(e){
       e.stopPropagation();
-      if($('settingsMenu').hidden) openDataMenu(); else closeDataMenu();
+      if($('dataMenu').hidden) openDataMenu(); else closeDataMenu();
     };
     document.addEventListener('click', function(){ closeDataMenu(); });
-    $('settingsMenu').addEventListener('click', function(e){
-      e.stopPropagation();
-      if(e.target.closest('#changeLocBtn')) exportJsonAs();
-    });
+    $('dataMenu').addEventListener('click', function(e){ e.stopPropagation(); onDataAct(e); });
+    $('settingsSection').addEventListener('click', onDataAct);
     $('bkChip').onclick = function(){ saveBackupNow(); };
-    $('saveNowBtn').onclick = function(){ saveBackupNow(); };
-    $('exportJsonBtn').onclick = function(){ exportJsonAs(); };
-    $('exportCsvBtn').onclick = function(){ exportCsvAs(); };
-    $('importBtn').onclick = function(){ importBackup(); };
     $('importFileInput').addEventListener('change', function(e){
       if(e.target.files[0]) importJsonFile(e.target.files[0]);
       e.target.value = '';
     });
-    $('resetAllBtn').onclick = function(){
+  }
+  function resetItems(){
       closeDataMenu();
       askConfirm('Clear wishlist items?', 'This removes every item on your list and puts the sample items back. This can\'t be undone, so save a backup first if you want one.' + syncNote(), function(){
         try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
@@ -3704,8 +3813,8 @@ dialog.mb-share::backdrop{background:var(--scrim)}
         renderAll();
         toast('Cleared. Sample items are back so you can start over.');
       }, 'Clear items');
-    };
-    $('clearAllDataBtn').onclick = function(){
+  }
+  function clearAllData(){
       closeDataMenu();
       askConfirm('Clear all data?', 'This wipes everything this site has saved in your browser: items, theme, backup history, photos, and the remembered backup file location. Backup files you saved are not touched. The page reloads right after.' + syncNote(), function(){
         var wipe = function(){
@@ -3721,8 +3830,8 @@ dialog.mb-share::backdrop{background:var(--scrim)}
         };
         if(SYNC && SYNC.status().signedIn){ items = []; save(); SYNC.sync().then(wipe, wipe); } else wipe();   // send the deletions before clearing
       }, 'Clear everything');
-    };
-
+  }
+  function wire2(){
     $('confirmCancelBtn').onclick = function(){ $('confirmOverlay').hidden = true; confirmCallback = null; };
     $('confirmOkBtn').onclick = function(){
       $('confirmOverlay').hidden = true;
@@ -3736,8 +3845,9 @@ dialog.mb-share::backdrop{background:var(--scrim)}
 
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape'){
+        if(document.querySelector('dialog[open]')) return;   // the account dialog / photo viewer close on their own
         if(!$('confirmOverlay').hidden){ $('confirmOverlay').hidden = true; confirmCallback = null; return; }
-        closeDataMenu();
+        closeDataMenu(true);
         closeSheet();
         if(!$('pauseOverlay').hidden){ closePause(0); return; }
         if(!$('reviewOverlay').hidden){ finishReview(); return; }
@@ -3750,7 +3860,6 @@ dialog.mb-share::backdrop{background:var(--scrim)}
         $('releaseNotesOverlay').hidden = true;
         $('privacyOverlay').hidden = true;
         $('termsOverlay').hidden = true;
-        if(!$('onboardingOverlay').hidden) dismissOnboarding();
       }
       if((e.key === 's' || e.key === 'S') && (e.metaKey || e.ctrlKey) && !e.shiftKey && !e.altKey){
         e.preventDefault();
@@ -3761,7 +3870,8 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     document.addEventListener('error', function(e){
       var img = e.target;
       if(!img || img.tagName !== 'IMG' || !img.dataset || !img.dataset.fallbackLetter) return;
-      var wrap = img.parentElement;
+      var btn = img.closest('.thumb-btn');
+      var wrap = btn ? btn.parentElement : img.parentElement;
       var tile = document.createElement('span');
       tile.className = 'letter';
       tile.textContent = img.dataset.fallbackLetter;
@@ -3855,15 +3965,18 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     document.querySelectorAll('.toolbar [data-view]').forEach(function(b){
       b.setAttribute('aria-pressed', b.dataset.view === viewMode ? 'true' : 'false');
     });
+    document.querySelectorAll('[data-view-set]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.viewSet === viewMode ? 'true' : 'false'); });
     renderGrid();
   }
 
   var PAGE_COPY = {
     wishlist: ['My list', 'Planned purchases, in one place.'],
     purchased: ['Purchased', 'What you bought, and what you decided against.'],
-    faq: ['FAQ', 'How this list works, plus installing it as an app.']
+    help: ['Help', 'How this list works, with answers to common questions.'],
+    settings: ['Settings', 'Theme, sync, backups and app info.']
   };
   function switchTab(tab){
+    if(tab === 'faq') tab = 'help';   // the old FAQ tab name still works
     if(!PAGE_COPY[tab]) tab = 'wishlist';
     activeTab = tab;
     document.querySelectorAll('.side-nav [data-tab], #bnav [data-tab]').forEach(function(b){
@@ -3875,14 +3988,24 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     $('homeBanner').hidden = tab !== 'wishlist';
     $('viewHead').hidden = tab === 'wishlist';
     if(window.MBTitle) MBTitle.set(PAGE_COPY[tab][0]);
-    if(tab === 'faq' && window.MBInstall) MBInstall.render();
+    var info = tab === 'help' || tab === 'settings';
     $('wishlistPane').hidden = tab !== 'wishlist';
     $('purchasedPane').hidden = tab !== 'purchased';
-    $('faqSection').hidden = tab !== 'faq';
-    $('statsRow').hidden = tab === 'faq';
-    $('addItemBtn').hidden = tab === 'faq';
-    $('releaseNotesBtn').hidden = tab !== 'faq';
+    $('faqSection').hidden = tab !== 'help';
+    $('settingsSection').hidden = tab !== 'settings';
+    $('pageFoot').hidden = tab === 'settings';
+    $('statsRow').hidden = info;
+    $('addItemBtn').hidden = info;
+    $('releaseNotesBtn').hidden = tab !== 'help';
+    if(tab === 'settings') $('bnMoreBtn').setAttribute('aria-current','page'); else $('bnMoreBtn').removeAttribute('aria-current');
+    if(tab === 'settings' && window.MBInstall) MBInstall.render();
     renderAll();
+  }
+  function renderSettings(){
+    $('setInstallHint').hidden = !$('setInstall').hidden;   // the Install card shows only when the browser offers install
+    if(activeTab !== 'settings') return;
+    document.querySelectorAll('[data-view-set]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.viewSet === viewMode ? 'true' : 'false'); });
+    $('setSampleRow').hidden = !items.some(function(i){ return i.isDemo; });
   }
 
   var THEME_KEY = "wishlist.theme";
@@ -3895,8 +4018,8 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     var isDark = currentTheme() === 'dark';
     btn.setAttribute('aria-checked', isDark ? 'true' : 'false');
     btn.title = isDark ? 'Dark mode on' : 'Dark mode off';
-    document.querySelectorAll('#obTheme [data-theme-pick]').forEach(function(b){
-      b.setAttribute('aria-pressed', b.dataset.themePick === currentTheme() ? 'true' : 'false');
+    document.querySelectorAll('[data-theme-set]').forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.themeSet === currentTheme() ? 'true' : 'false');
     });
     var meta = document.querySelector('meta[name="theme-color"]');
     if(meta) meta.setAttribute('content', isDark ? '#1e2126' : '#d97706');
@@ -3944,9 +4067,9 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       var b = e.target.closest('[data-sheet]'); if(!b) return;
       closeSheet();
       var a = b.dataset.sheet;
-      if(a === 'search') $('searchBtn').click();
+      if(a === 'settings'){ switchTab('settings'); window.scrollTo(0,0); }
+      else if(a === 'search') $('searchBtn').click();
       else if(a === 'release') $('releaseNotesOverlay').hidden = false;
-      else if(a === 'storage') $('cookieBanner').hidden = false;
       else if(a === 'privacy') $('privacyOverlay').hidden = false;
       else if(a === 'terms') $('termsOverlay').hidden = false;
     });
@@ -3966,19 +4089,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     });
   }
 
-  var COOKIE_KEY = "wishlist.privacyAck";
-  function initCookieBanner(){
-    var banner = $('cookieBanner');
-    if(!banner) return;
-    var acked = null;
-    try{ acked = localStorage.getItem(COOKIE_KEY); }catch(e){}
-    if(!acked){ banner.hidden = false; }
-    $('cookieAcceptBtn').onclick = function(){
-      try{ localStorage.setItem(COOKIE_KEY, '1'); }catch(e){}
-      banner.hidden = true;
-    };
-    $('cookieBannerReopenBtn').onclick = function(){ banner.hidden = false; };
-  }
+  var COOKIE_KEY = "wishlist.privacyAck";   // the old first-visit storage notice; its text now lives in the welcome and Settings
 
   function initLegalModals(){
     function wireOverlay(overlayId, openBtnIds, closeBtnId){
@@ -3994,8 +4105,16 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       if(closeBtn) closeBtn.onclick = close;
       overlay.addEventListener('click', function(e){ if(e.target === this) close(); });
     }
-    wireOverlay('privacyOverlay', ['privacyFooterBtn', 'aboutPrivacyBtn'], 'privacyCloseBtn');
-    wireOverlay('termsOverlay', ['termsFooterBtn', 'aboutTermsBtn'], 'termsCloseBtn');
+    wireOverlay('privacyOverlay', [], 'privacyCloseBtn');
+    wireOverlay('termsOverlay', [], 'termsCloseBtn');
+    // footer, About card, welcome and Settings links: [data-open] / [data-tab-go]
+    document.addEventListener('click', function(e){
+      var b = e.target.closest && e.target.closest('[data-open],[data-tab-go]'); if(!b) return;
+      e.preventDefault();
+      if(b.dataset.tabGo){ switchTab(b.dataset.tabGo); window.scrollTo(0,0); return; }
+      var o = { release:'releaseNotesOverlay', privacy:'privacyOverlay', terms:'termsOverlay' }[b.dataset.open];
+      if(o) $(o).hidden = false;
+    });
   }
 
   function initReleaseNotes(){
@@ -4004,11 +4123,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     function open(){ overlay.hidden = false; }
     function close(){ overlay.hidden = true; }
     var btn = $('releaseNotesBtn');
-    var footerBtn = $('releaseNotesFooterBtn');
     if(btn) btn.onclick = open;
-    if(footerBtn) footerBtn.onclick = open;
-    var aboutBtn = $('aboutWhatsNewBtn');
-    if(aboutBtn) aboutBtn.onclick = open;
     $('releaseNotesCloseBtn').onclick = close;
     overlay.addEventListener('click', function(e){ if(e.target === this) close(); });
   }
@@ -4033,7 +4148,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     input.addEventListener('input', function(){ runSiteSearch(input.value.trim()); });
 
     function runSiteSearch(q){
-      if(!q){ results.innerHTML = '<p class="hint">Type to search your wishlist items and the FAQ.</p>'; return; }
+      if(!q){ results.innerHTML = '<p class="hint">Type to search your wishlist items and Help.</p>'; return; }
       var ql = q.toLowerCase();
       var itemHits = items.filter(function(it){
         return !it.purchased && ((it.name||'')+' '+(it.category||'')+' '+(it.notes||'')).toLowerCase().indexOf(ql) !== -1;
@@ -4051,7 +4166,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
         }).join('');
       }
       if(faqHits.length){
-        html += '<div class="search-group-label">FAQ</div>';
+        html += '<div class="search-group-label">Help</div>';
         html += faqHits.map(function(el){
           var q2 = el.querySelector('.faq-q');
           return '<button type="button" class="search-result" data-search-faq="'+el.id+'">'+ic('help')+'<span>'+escapeHtml(q2 ? q2.textContent.trim() : '')+'</span></button>';
@@ -4072,7 +4187,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
       var faqBtn = e.target.closest('[data-search-faq]');
       if(faqBtn){
         close();
-        switchTab('faq');
+        switchTab('help');
         var el = $(faqBtn.dataset.searchFaq);
         if(el){
           el.classList.add('open');
@@ -4084,6 +4199,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     });
 
     document.addEventListener('keydown', function(e){
+      if(!$('welcome').hidden) return;   // finish or skip the welcome first
       if((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)){
         e.preventDefault();
         open();
@@ -4096,28 +4212,86 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     });
   }
 
+  /* ---- Welcome / first run (MB Suite v3.3 .mbw): Welcome → Pick a look → How to start ----
+     Shown once, on a device with no list of its own and no saved sign-in. Skip or finish sets wishlist.onboarded
+     (and the old storage-notice flag). Sample items stay unless "empty list" is picked; they never sync. */
   var ONBOARDED_KEY = "wishlist.onboarded";
-  function dismissOnboarding(){
-    $('onboardingOverlay').hidden = true;
-    try{
-      localStorage.setItem(ONBOARDED_KEY, '1');
-      localStorage.setItem(COOKIE_KEY, '1');
-    }catch(e){}
-    $('cookieBanner').hidden = true;
+  var wStep = 0, W_N = 3, wStart = 'sample';
+  var W_FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  function wVisible(el){ return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }
+  function renderWelcomeAcct(){
+    var a = $('mbwAcct');
+    if(!window.MBSync){ a.innerHTML = ''; return; }
+    var signedIn = !!(SYNC && SYNC.status().signedIn);
+    var had = document.activeElement && document.activeElement.id === 'mbwIn';
+    a.innerHTML = signedIn ? '<span class="mbw-signed">Signed in</span>' : '<button class="mbw-link acc" type="button" id="mbwIn">Sign in</button>';
+    var b = $('mbwIn'); if(b){ b.onclick = openSync; if(had) b.focus(); }
   }
-  function initOnboarding(){
-    var overlay = $('onboardingOverlay');
-    if(!overlay) return;
+  function renderWelcome(i){
+    wStep = i;
+    var w = $('welcome');
+    w.querySelectorAll('.mbw-body').forEach(function(b){ b.hidden = +b.dataset.step !== i; });
+    w.querySelectorAll('.mbw-prog i').forEach(function(x, k){ x.classList.toggle('on', k <= i); });
+    $('mbwStep').textContent = 'Step ' + (i+1) + ' of ' + W_N;
+    $('mbwBack').hidden = i === 0;
+    $('mbwNext').innerHTML = (i === W_N-1 ? 'Get started' : 'Next') + uic('<path d="M5 12h14M13 6l6 6-6 6"/>', 16);
+    var hasSamples = items.some(function(x){ return x.isDemo; });
+    $('mbwChoices').hidden = !hasSamples;
+    $('mbwStartLead').textContent = hasSamples
+      ? 'Sample items show how needs, wants, target prices and the cart work. They never sync, and one click clears them.'
+      : 'Your list is ready. Use Add item to put the first thing on it.';
+    w.querySelectorAll('[data-start]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.start === wStart ? 'true' : 'false'); });
+    $('mbwSync').hidden = !window.MBSync;
+    renderWelcomeAcct();
+    updateThemeToggleIcon();
+  }
+  function openWelcome(){
+    $('welcome').hidden = false;
+    renderWelcome(0);
+    setTimeout(function(){ $('mbwNext').focus(); }, 30);
+  }
+  function closeWelcome(how){   // how: 'skip' | 'done' | 'import'
+    if($('welcome').hidden) return;
+    if(how !== 'skip' && wStart === 'empty') clearSamples();
+    $('welcome').hidden = true;
+    try{ localStorage.setItem(ONBOARDED_KEY, '1'); localStorage.setItem(COOKIE_KEY, '1'); }catch(e){}
+    if(how !== 'import'){ var f = $('addItemBtn'); if(f && wVisible(f)) f.focus(); else $('main').focus({ preventScroll:true }); }
+  }
+  function initWelcome(){
+    var w = $('welcome');
+    $('mbwNext').onclick = function(){ if(wStep < W_N-1) renderWelcome(wStep+1); else closeWelcome('done'); };
+    $('mbwBack').onclick = function(){ renderWelcome(Math.max(0, wStep-1)); };
+    $('mbwSkip').onclick = function(){ closeWelcome('skip'); };
+    $('mbwSync').onclick = openSync;
+    $('mbwImport').onclick = function(){ closeWelcome('import'); importBackup(); };
+    w.addEventListener('click', function(e){
+      var c = e.target.closest('[data-start]'); if(!c) return;
+      wStart = c.dataset.start;
+      renderWelcome(wStep);
+    });
+    w.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ e.preventDefault(); closeWelcome('skip'); return; }   // Esc = Skip
+      if(e.key !== 'Tab') return;
+      var f = Array.prototype.filter.call(w.querySelectorAll(W_FOCUSABLE), wVisible);
+      if(!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    });
+    document.addEventListener('focusin', function(e){   // keep focus inside while it's open (not over the account dialog or a legal page)
+      if(w.hidden || w.contains(e.target) || document.querySelector('dialog[open]') || document.querySelector('.modal-overlay:not([hidden])')) return;
+      var f = Array.prototype.filter.call(w.querySelectorAll(W_FOCUSABLE), wVisible);
+      if(f.length) f[0].focus();
+    });
     var seen = null;
     try{ seen = localStorage.getItem(ONBOARDED_KEY); }catch(e){}
-    if(!seen){ overlay.hidden = false; $('cookieBanner').hidden = true; }
-    $('onboardingDismissBtn').onclick = dismissOnboarding;
-    overlay.addEventListener('click', function(e){ if(e.target === this) dismissOnboarding(); });
-    $('obTheme').addEventListener('click', function(e){
-      var b = e.target.closest('[data-theme-pick]'); if(!b) return;
-      setTheme(b.dataset.themePick);
-    });
-    $('obImportBtn').onclick = function(){ dismissOnboarding(); importBackup(); };
+    if(seen) return;
+    var signedIn = !!(window.MBSync && MBSync.hasSavedSignIn && MBSync.hasSavedSignIn());
+    if(signedIn || items.some(function(i){ return !i.isDemo; })){   // returning person: their list (or account) is already here
+      try{ localStorage.setItem(ONBOARDED_KEY, '1'); localStorage.setItem(COOKIE_KEY, '1'); }catch(e){}
+      return;
+    }
+    openWelcome();
   }
 
   initTheme();
@@ -4126,17 +4300,51 @@ dialog.mb-share::backdrop{background:var(--scrim)}
   initBackToTop();
   initBottomNav();
   initFaq();
-  initCookieBanner();
   initLegalModals();
   initReleaseNotes();
-  initOnboarding();
+  buildDataLists();
 
   wire();
+  wire2();
   initSiteSearch();
   setView(viewMode);
   if(/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent)){
     document.querySelectorAll('#searchBtn kbd').forEach(function(k){ k.textContent = '⌘K'; });
-    $('saveNowKbd').textContent = '⌘S';
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest && e.target.closest('[data-theme-set],[data-view-set],[data-photo]');
+    if(!t) return;
+    if(t.dataset.themeSet) setTheme(t.dataset.themeSet);
+    else if(t.dataset.viewSet) setView(t.dataset.viewSet);
+    else { e.preventDefault(); e.stopPropagation(); openPhoto(t); }
+  }, true);
+
+  /* ---- v1.5: item photos open in the app's viewer (MBFiles.view), as a gallery of the photos shown alongside ---- */
+  function photoFile(it){
+    var du = it && isSafeImageSrc(it.imageDataUrl) ? it.imageDataUrl : null;
+    return du ? { dataUrl: du, name: fileSafe(it.name) + '.' + photoExt(du), type: (/^data:([^;]+)/.exec(du) || [])[1] || 'image/jpeg', alt: it.name } : null;
+  }
+  function openPhoto(btn){
+    if(!window.MBFiles) return;
+    var id = btn.dataset.photo, list = [], index = 0;
+    if(id === '__editing__'){
+      if(!editingImageDataUrl) return;
+      var cur = items.find(function(i){ return i.id === editingId; });
+      list = [{ dataUrl: editingImageDataUrl, name: fileSafe($('fieldName').value || (cur && cur.name) || 'Photo') + '.' + photoExt(editingImageDataUrl), type: (/^data:([^;]+)/.exec(editingImageDataUrl) || [])[1] || 'image/jpeg' }];
+    } else {
+      var scope = btn.closest('#wishlistResults,#purchasedList,#droppedList,#reviewBody,#compareBody') || document;
+      var seen = {};
+      Array.prototype.forEach.call(scope.querySelectorAll('[data-photo]'), function(b){
+        var pid = b.dataset.photo; if(seen[pid] || pid === '__editing__') return;
+        var f = photoFile(items.find(function(i){ return i.id === pid; }));
+        if(!f) return;
+        seen[pid] = 1;
+        if(pid === id) index = list.length;
+        list.push(f);
+      });
+      if(!list.length) return;
+    }
+    MBFiles.view(list[index], { list: list, index: index });
   }
 
   /* ---- PWA: offline cache + share-sheet links ---- */
@@ -4155,7 +4363,7 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     }
     if(!url && !title && !text) return;
     try{ history.replaceState(null, '', location.pathname); }catch(e){}
-    if(!$('onboardingOverlay').hidden) dismissOnboarding();
+    closeWelcome('skip');
     openModal(null);
     if(isSafeUrl(url)){ $('fieldUrl').value = url.slice(0,2000); handleUrlInput(); }
     var paste = [title, text.replace(url,'').trim()].filter(Boolean).join('\n').slice(0,600);
@@ -4207,10 +4415,11 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     });
     document.querySelectorAll('.modal-overlay').forEach(function(o){
       mo.observe(o, { attributes:true, attributeFilter:['hidden'] });
-      if(!o.hidden) onOpen(o);   // already open at startup (onboarding)
+      if(!o.hidden) onOpen(o);
     });
     document.addEventListener('keydown', function(e){
       if(e.key !== 'Tab') return;
+      if(document.querySelector('dialog[open]')) return;   // the account dialog / photo viewer keep their own focus
       var o = topOverlay(); if(!o) return;
       var f = Array.prototype.filter.call(o.querySelectorAll(FOCUSABLE), visible);
       if(!f.length) return;
@@ -4252,22 +4461,38 @@ dialog.mb-share::backdrop{background:var(--scrim)}
     if(document.querySelector('.modal-overlay:not([hidden])')) return;   // don't redraw under an open form
     renderAll();
   }
-  function updateSyncUI(st){
-    var t = $('syncTitle'), sub = $('syncSub'); if(!t) return;
-    t.textContent = st.signedIn ? 'Sync: ' + st.label : 'Sync across devices\u2026';
-    sub.textContent = st.signedIn ? st.email : 'Optional free account. Photos stay on each device';
+  function updateSyncUI(){
+    renderBackupStatus();
+    if(!$('welcome').hidden){ renderWelcomeAcct(); renderWelcome(wStep); }
+  }
+  var initDone = null;
+  function openSync(){   // the sync engine starts once photos have loaded (a moment after the page opens)
+    if(SYNC){ SYNC.open(); return; }
+    if(window.MBSync && initDone) initDone.then(function(){ if(SYNC) SYNC.open(); });
   }
   function startSync(){
     if(!window.MBSync) return;
-    SYNC = MBSync.create({ app: 'wishlist', label: 'Wishlist', toRecords: syncRecords, fromRecords: syncApply,
+    SYNC = MBSync.create({ app: 'wishlist', label: 'Wishlist',
+      what: 'your items, prices, price history and notes',
+      note: 'Photos and sample items stay on this device.',
+      toRecords: syncRecords, fromRecords: syncApply,
       hasData: function(){ return items.some(function(i){ return !i.isDemo; }); }, onStatus: updateSyncUI });
-    $('syncBtn').hidden = false;
-    $('syncBtn').onclick = function(){ closeDataMenu(); SYNC.open(); };
-    $('obSyncWrap').hidden = false;
-    $('obSyncBtn').onclick = function(){ if(typeof dismissOnboarding === 'function') dismissOnboarding(); SYNC.open(); };
+    SYNC.button($('acctBtn'));
+    SYNC.card($('syncCard'));
+    SYNC.greet($('greet'), { name: '' });   // "Good morning", or "Good morning, <screen name>" when signed in
+    window.addEventListener('mbsync:status', updateSyncUI);
+    updateSyncUI();
+  }
+  if(window.MBSync){ if(MBSync.greeting) $('greet').textContent = MBSync.greeting(''); }   // sync.greet() takes over once sync starts
+  else {
+    $('acctBtn').hidden = true; $('greet').hidden = true;
+    $('syncCard').innerHTML = '<p class="hint" style="margin:0">Sync isn\u2019t available in this browser. Your list still saves here, and backups work as usual.</p>';
   }
 
-  Promise.resolve(init()).then(function(){
+  try{ new MutationObserver(function(){ $('setInstallHint').hidden = !$('setInstall').hidden; }).observe($('setInstall'), { attributes:true, attributeFilter:['hidden'] }); }catch(e){}
+  initDone = Promise.resolve(init());
+  initWelcome();
+  initDone.then(function(){
     startSync();
     bumpRevision(); // setView() rendered before items loaded; drop that cached empty list
     switchTab('wishlist');

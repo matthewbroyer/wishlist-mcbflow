@@ -26,7 +26,8 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius
 header{width:min(720px,100% - 32px);margin:0 auto;padding:20px 0 0}
 .brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:650;font-size:16px}
 .brand svg{width:34px;height:34px;flex:none;border-radius:8px}
-.brand i{font-style:normal;color:var(--accent)}
+.brand i{font-style:normal;font-weight:500;color:var(--accent)}
+.brand .sep{margin:0 .32em 0 .34em;color:var(--muted);font-weight:400}
 main{flex:1;width:min(720px,100% - 32px);margin:18px auto 24px}
 .card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:8px;
  box-shadow:0 1px 2px rgba(20,24,31,.06),0 12px 32px -18px rgba(20,24,31,.28);padding:28px 28px 0}
@@ -53,8 +54,8 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--acce
 </head>
 <body>
 <div class="bar"></div>
-<header><a class="brand" href="/"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="mbwi-g1" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#de8a29"/><stop offset=".55" stop-color="#D97706"/><stop offset="1" stop-color="#ae5f05"/></linearGradient><clipPath id="mbwi-c1"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbwi-c1)"><rect width="64" height="64" fill="url(#mbwi-g1)"/><path d="M33 12h15a4 4 0 0 1 4 4v15a4 4 0 0 1-1.2 2.8L33.5 51.2a4 4 0 0 1-5.7 0L12.8 36.2a4 4 0 0 1 0-5.7L30.2 13.2A4 4 0 0 1 33 12z" fill="#fff"/>
-<circle cx="43.5" cy="20.5" r="3.2" fill="#D97706"/><path d="M30.5 41c-4.4-3-6.8-5.2-6.8-7.8a3.5 3.5 0 0 1 6.8-1.1 3.5 3.5 0 0 1 6.8 1.1c0 2.6-2.4 4.8-6.8 7.8z" fill="#9A4F05"/></g></svg><span>wishlist<i>.mcbflow.com</i></span></a></header>
+<header><a class="brand" href="/" aria-label="Wishlist (wishlist.mcbflow.com): go to My list"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="mbwi-g1" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#de8a29"/><stop offset=".55" stop-color="#D97706"/><stop offset="1" stop-color="#ae5f05"/></linearGradient><clipPath id="mbwi-c1"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbwi-c1)"><rect width="64" height="64" fill="url(#mbwi-g1)"/><path d="M33 12h15a4 4 0 0 1 4 4v15a4 4 0 0 1-1.2 2.8L33.5 51.2a4 4 0 0 1-5.7 0L12.8 36.2a4 4 0 0 1 0-5.7L30.2 13.2A4 4 0 0 1 33 12z" fill="#fff"/>
+<circle cx="43.5" cy="20.5" r="3.2" fill="#D97706"/><path d="M30.5 41c-4.4-3-6.8-5.2-6.8-7.8a3.5 3.5 0 0 1 6.8-1.1 3.5 3.5 0 0 1 6.8 1.1c0 2.6-2.4 4.8-6.8 7.8z" fill="#9A4F05"/></g></svg><span>Wishlist<i class="tld"><span class="sep" aria-hidden="true">∙</span>mcbflow.com</i></span></a></header>
 <main>
 <div class="card">
 <span class="code"><b>404</b><i aria-hidden="true">·</i>Page not found</span>
@@ -67,6 +68,6 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--acce
 <svg class="art" viewBox="0 0 640 136" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false"><circle class="b" cx="560" cy="46" r="26"/><path class="s" d="M210 150 C315 80 525 80 630 150Z"/><path class="m" d="M410 150 C485 66 635 66 710 150Z"/><path class="d" d="M530 150 C585 90 695 90 750 150Z"/><path class="n" transform="translate(470 98) rotate(-64) scale(0.5)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(480 98) rotate(-116) scale(0.4)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><circle class="r" cx="360" cy="44" r="6"/></svg>
 </div>
 </main>
-<footer><span>wishlist.mcbflow.com</span><a href="https://mcbflow.com/">mcbflow.com</a><span>© 2026 Matthew Broyer. All rights reserved.</span></footer>
+<footer><span>Wishlist ∙ mcbflow.com</span><a href="https://mcbflow.com/">mcbflow.com</a><span>© 2026 Matthew Broyer. All rights reserved.</span></footer>
 </body>
 </html>
