@@ -2,6 +2,26 @@
 
 Newest first. One entry per release, in plain words a user would understand.
 
+## 1.7 · 2026-10-17
+- New people start with an empty list. The welcome screen offers "Start with sample data" if you want to try things first (default: Start empty). Your own list and any sample items you already have are untouched.
+- Sample data has one notice at the top of My list with **Remove sample data**, and an Undo right after.
+- Deleting an item happens right away with an **Undo** button: no more "are you sure?" box. **Clear wishlist items** (Data menu) now simply empties your list, with Undo, instead of putting the sample items back.
+- On phones, **More** opens the same sheet as in the other mcbflow.com apps: Settings, Help and What's new. Privacy and Terms are in the footer; Search is in the top bar.
+- New **Help** page: Getting started in four steps, then questions grouped by topic, ending with Install the app and Your data & privacy.
+- **Search** (the Search button, "/" or Ctrl+K) finds your items, purchases and Help topics and opens what you pick.
+- What's new, messages at the bottom of the screen, empty screens and the Install section in Settings look and read the same as in every mcbflow.com app. Settings says "Changes save as you make them."
+- The welcome banner reads "Your wishlist" with today's date and what's planned.
+- File names: spreadsheets are now `wishlist-items-<date>.csv` and share images `wishlist-progress-<date>.png` (backups stay `wishlist-backup-<date>.json` / `.zip`). Exporting an empty list works and says so. Older files still import.
+- Your items, photos, price history and backups are unchanged.
+
+## 1.6 · 2026-10-17
+- On phones, Add item is now the big button in the middle of the bottom bar: My list · Purchased · Add item · Settings · More, the same as in the other mcbflow.com apps. Help moved into More (with Search, What's new, Privacy and Terms). The orange Add item button stays in the top bar on tablets and computers.
+- Clear all data now asks you to type DELETE, the same in every mcbflow.com app. The same box offers to save a backup first and says whether your synced copy is deleted too.
+- Very long item names and categories wrap instead of running off the edge, the Purchased list no longer makes the page scroll sideways on phones, and on narrow cards the buttons under the price move to their own line instead of being cut off.
+- Account pop-up spacing fixed.
+- Welcome banner art no longer cut off on phones.
+- Your items, photos, price history and backups are unchanged.
+
 ## 1.5 · 2026-10-16
 - New Settings page (the gear at the bottom of the sidebar; the first item under More on phones): theme, account and sync, list layout, backups, install and app info in one place. The old FAQ page is now **Help**, and the "Privacy & storage" note moved into Settings → Backup & data.
 - Account button in the top bar: "Sign in", or once you're signed in your profile picture with a small sync dot. Edit profile lets you pick a screen name and one of the profile pictures; every mcbflow.com app shows the same ones. New "Keep me signed in on this device" switch (turn it off on a shared computer).

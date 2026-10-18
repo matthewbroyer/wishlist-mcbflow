@@ -1,5 +1,5 @@
 /* ==========================================================================================================
-   mb-files.js 1.0.0  ·  2026-10-16  ·  SHARED FILE: copy it into every mcbflow.com app UNCHANGED.
+   mb-files.js 1.1.0  ·  2026-10-17  ·  SHARED FILE: copy it into every mcbflow.com app UNCHANGED.
    If you ever edit it, raise VERSION (below and on line 2), add a row to "SHARED FILES/SHARED-FILES-VERSIONS.md"
    and copy the new file into every app. No dependencies, no network, nothing leaves the device.
    ----------------------------------------------------------------------------------------------------------
@@ -16,10 +16,17 @@
    MBFiles.csv(rows, cols)    → string with a UTF-8 BOM, CRLF lines, quotes, and the spreadsheet formula guard.
    MBFiles.download(blob, name)  Plain download (the app's own "Save backup now" keeps its folder logic).
    MBFiles.size(bytes)        "1.2 MB"
+   MBFiles.confirmClear(opts) → Promise<boolean>. THE "Clear all data" confirmation, identical in every app (1.1.0):
+       opts: { what: 'your accounts, transactions and budgets',   // what gets deleted (shown in the sentence)
+               synced: 'Your synced copy on your account is deleted too.' | '' ,   // app decides; '' when signed out
+               note: '' ,                                          // optional extra line (e.g. "Files you added stay on disk.")
+               recoverable: '' ,                                   // optional: replaces "It can't be undone." when the app keeps a restorable copy
+               onBackup: () => app.saveBackup() }                  // optional: shows "Save a backup first"; return false or throw if cancelled
+       The red button stays disabled until the person types DELETE (any case). Esc / Cancel → false.
    ========================================================================================================== */
 (function () {
 'use strict';
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 
 /* ---------- small helpers ---------- */
 const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]));
@@ -188,7 +195,28 @@ const CSS = `
 .mbf-count{font-size:12px;color:rgba(255,255,255,.75);padding:0 8px;white-space:nowrap}
 @media (max-width:600px){ .mbf-b .lbl{display:none} .mbf-b{padding:0;width:40px} .mbf-nav{width:40px;height:40px} }
 @media (prefers-reduced-motion:no-preference){ .mbf{animation:mbf-in .14s ease-out} @keyframes mbf-in{from{opacity:0}to{opacity:1}} }
-[data-mbf-view]{cursor:zoom-in}`;
+[data-mbf-view]{cursor:zoom-in}
+.mbc{border:1px solid var(--border,#dfe2e7);border-radius:var(--r-lg,8px);padding:0;width:min(440px,calc(100vw - 24px));max-width:calc(100vw - 24px);background:var(--surface,#fff);color:var(--ink,#1b1f24);
+  box-shadow:0 18px 50px rgba(0,0,0,.25);font:14px/1.5 var(--font,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif)}
+.mbc::backdrop{background:rgba(10,12,16,.45)}
+.mbc-in{padding:20px 22px 18px}
+.mbc h2{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-size:18px;font-weight:650;letter-spacing:-.01em}
+.mbc h2 svg{width:22px;height:22px;flex:none;color:var(--crit,#c9302c)}
+.mbc p{margin:0 0 10px;color:var(--ink-2,#48505c)}
+.mbc .mbc-bk{margin:2px 0 14px}
+.mbc label{display:block;margin:4px 0 6px;font-size:13px;font-weight:600;color:var(--ink-2,#48505c)}
+.mbc label code{font:inherit;font-weight:700;color:var(--crit,#c9302c);letter-spacing:.04em}
+.mbc input{width:100%;box-sizing:border-box;min-height:40px;padding:6px 10px;border:1px solid var(--border-strong,#c6cbd3);border-radius:var(--r-sm,4px);background:var(--surface,#fff);color:var(--ink,#1b1f24);font:inherit;font-size:16px;letter-spacing:.04em}
+.mbc input:focus{outline:none;border-color:var(--crit,#c9302c);box-shadow:0 0 0 1px var(--crit,#c9302c)}
+.mbc-row{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.mbc-b{min-height:40px;padding:0 16px;border-radius:var(--r-sm,4px);border:1px solid var(--border-strong,#c6cbd3);background:var(--surface,#fff);color:var(--ink,#1b1f24);font:inherit;font-size:14px;font-weight:550;cursor:pointer;white-space:nowrap}
+.mbc-b:hover{background:var(--surface-2,#f6f7f9)}
+.mbc-b:focus-visible{outline:2px solid var(--accent,#333);outline-offset:2px}
+.mbc-b.danger{background:var(--crit,#c9302c);border-color:var(--crit,#c9302c);color:#fff}
+.mbc-b.danger:hover{filter:brightness(.94)}
+.mbc-b:disabled{opacity:.45;cursor:not-allowed;filter:none}
+@media (max-width:480px){ .mbc-row{flex-direction:column-reverse} .mbc-row .mbc-b{width:100%;min-height:44px} .mbc .mbc-bk{width:100%;min-height:44px} }
+`;
 const I = {
   x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   dl: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>',
@@ -318,5 +346,36 @@ function bind(root) {
 }
 function CSS_ESC(s) { return (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\]/g, '\\$&'); }
 
-window.MBFiles = { version: VERSION, view, close, bind, zip, unzip, csv, download, size, kindOf };
+/* ---------- "Clear all data" confirmation (one flow in every app, 1.1.0) ---------- */
+function confirmClear(opts) {
+  opts = opts || {};
+  ensureStyle();
+  return new Promise(resolve => {
+    const d = document.createElement('dialog');
+    d.className = 'mbc'; d.setAttribute('aria-labelledby', 'mbcT'); d.setAttribute('aria-describedby', 'mbcD');
+    const what = opts.what ? esc(opts.what) : 'everything this app saved';
+    d.innerHTML = '<form method="dialog" class="mbc-in" autocomplete="off">' +
+      '<h2 id="mbcT">' + I.del + 'Clear all data?</h2>' +
+      '<p id="mbcD">This deletes ' + what + ' from this browser. ' + (opts.recoverable ? esc(opts.recoverable) : 'It can\u2019t be undone.') + '</p>' +
+      (opts.synced ? '<p>' + esc(opts.synced) + '</p>' : '') +
+      (opts.note ? '<p>' + esc(opts.note) + '</p>' : '') +
+      (typeof opts.onBackup === 'function' ? '<button type="button" class="mbc-b mbc-bk">Save a backup first</button>' : '') +
+      '<label for="mbcW">Type <code>DELETE</code> to confirm</label>' +
+      '<input id="mbcW" type="text" inputmode="text" autocapitalize="characters" autocorrect="off" spellcheck="false" enterkeyhint="done">' +
+      '<div class="mbc-row"><button type="button" class="mbc-b mbc-no">Cancel</button><button type="submit" class="mbc-b danger mbc-yes" disabled>Clear all data</button></div></form>';
+    document.body.appendChild(d);
+    const inp = d.querySelector('#mbcW'), yes = d.querySelector('.mbc-yes'), bk = d.querySelector('.mbc-bk');
+    let ok = false;
+    const valid = () => inp.value.trim().toUpperCase() === 'DELETE';
+    inp.addEventListener('input', () => { yes.disabled = !valid(); });
+    d.querySelector('.mbc-no').onclick = () => d.close();
+    if (bk) bk.onclick = async () => { bk.disabled = true; try { const r = await opts.onBackup(); if (r === false) { bk.disabled = false; return; } bk.textContent = 'Backup saved \u2713'; } catch (e) { bk.disabled = false; } };   // onBackup returns false (or throws) when cancelled
+    d.querySelector('form').addEventListener('submit', e => { if (!valid()) { e.preventDefault(); return; } ok = true; });
+    d.addEventListener('close', () => { d.remove(); resolve(ok); });
+    d.showModal();
+    setTimeout(() => { try { inp.focus(); } catch (e) {} }, 30);
+  });
+}
+
+window.MBFiles = { version: VERSION, view, close, bind, zip, unzip, csv, download, size, kindOf, confirmClear };
 })();

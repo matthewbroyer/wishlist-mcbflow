@@ -1,9 +1,13 @@
 /* ==========================================================================================================
-   mb-sync.js 1.1.0  ·  2026-10-16  ·  SHARED FILE: copy it into every mcbflow.com app UNCHANGED.
+   mb-sync.js 1.1.1  ·  2026-10-17  ·  SHARED FILE: copy it into every mcbflow.com app UNCHANGED.
    If you ever edit this file, raise VERSION (below and on line 2), add a row to the version table in
    "SHARED FILES/SHARED-FILES-VERSIONS.md" (9-step package) and copy the new file into EVERY app.
    The release checker FAILs any app whose mb-sync.js is older than, or different from, the kit copy.
    ----------------------------------------------------------------------------------------------------------
+   What changed in 1.1.1 (layout only; no data or behaviour change):
+     · Account dialog: space between the buttons and the divider line under them (the line touched the buttons),
+       "Edit profile" stays on one line, long names/emails shorten with …, buttons share the row on phones,
+       dialog never wider than the screen.
    What changed in 1.1.0 (from 1.0.2):
      · "Keep me signed in on this device" (on by default). Off = the sign-in lasts until the browser closes.
      · sync.button(el): standard top-bar account button ("Sign in" / avatar with a sync-status dot).
@@ -47,7 +51,7 @@ const SUPABASE_KEY = 'sb_publishable_i786YYip9yEZ_KC0CwOcZw_q7yOIoyM';
 const SESSION_KEY  = 'sb-rxvcjdwmvxhwbdwncfhj-auth-token';   // where supabase-js keeps the sign-in on this site
 const ACCOUNT_URL  = 'https://mcbflow.com/account.html';
 const LIB_SRC      = 'vendor/supabase.js';
-const VERSION      = '1.1.0';
+const VERSION      = '1.1.1';
 const PAGE = 1000, BATCH = 500, PUSH_DELAY = 1200, RETRY_MS = 30000;
 const MAX_BYTES = 230000, BATCH_BYTES = 1000000;   // one record must fit the database's 256 KB limit; keep each upload request small
 const OVERLAP_MS = 120000;   // re-read the last 2 minutes on each pull, so a slow save that lands late is never skipped
@@ -149,7 +153,7 @@ function greeting(name) { name = String(name || '').trim(); return partOfDay() +
 
 /* ---------- dialog (styled with the app's own colour variables) ---------- */
 const CSS = `
-.mbs-dlg{border:1px solid var(--border,#dfe2e7);border-radius:var(--r-lg,8px);padding:0;width:min(420px,calc(100% - 32px));background:var(--surface,#fff);color:var(--ink,#1b1f24);box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.mbs-dlg{border:1px solid var(--border,#dfe2e7);border-radius:var(--r-lg,8px);padding:0;width:min(420px,calc(100vw - 24px));max-width:calc(100vw - 24px);box-sizing:border-box;background:var(--surface,#fff);color:var(--ink,#1b1f24);box-shadow:0 18px 50px rgba(0,0,0,.25)}
 .mbs-dlg::backdrop{background:rgba(10,12,16,.45)}
 .mbs-in{padding:20px 22px 18px;font-size:14px;line-height:1.55}
 .mbs-in h2{margin:0 0 6px;font-size:18px}
@@ -168,6 +172,7 @@ const CSS = `
 .mbs-b:disabled{opacity:.55;cursor:not-allowed}
 .mbs-links{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--border,#dfe2e7);font-size:13px;color:var(--muted,#5f6773)}
 .mbs-links a{color:var(--accent)}
+.mbs-in .mbs-links{margin:18px 0 0;padding-top:14px}
 .mbs-choice{display:block;width:100%;text-align:left;margin:0 0 8px;padding:10px 12px;border:1px solid var(--border-strong,#c6cbd3);border-radius:var(--r,6px);background:var(--surface,#fff);color:var(--ink,#1b1f24);font:inherit;cursor:pointer}
 .mbs-choice:hover{border-color:var(--accent);background:var(--surface-2,#f6f7f9)}
 .mbs-choice b{display:block;font-size:14px}.mbs-choice small{display:block;color:var(--muted,#5f6773);font-size:12.5px;margin-top:2px}
@@ -211,7 +216,10 @@ const CSS = `
 .mbs-pic:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:3px}
 .mbs-prof{display:flex;align-items:center;gap:10px;margin:0 0 12px}
 .mbs-prof .mbs-card-ic{width:40px;height:40px}
-.mbs-prof b{display:block;font-size:14.5px}.mbs-prof small{display:block;color:var(--muted,#5f6773);font-size:12.5px}
+.mbs-prof>div{min-width:0;flex:1 1 auto}
+.mbs-prof b{display:block;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mbs-prof small{display:block;color:var(--muted,#5f6773);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mbs-prof .mbs-b{flex:none;white-space:nowrap}
+@media (max-width:480px){ .mbs-in>.mbs-row .mbs-b{flex:1 1 0;min-height:44px;padding:0 8px} }
 
 .mbs-card-h b{display:block;font-size:14.5px;font-weight:650;color:var(--ink,#1b1f24);overflow-wrap:anywhere}
 .mbs-card-h p{margin:2px 0 0;color:var(--ink-2,#48505c);font-size:13.5px}

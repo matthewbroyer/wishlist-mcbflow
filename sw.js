@@ -2,8 +2,8 @@
    Network-first for the app's own files, cache as the offline fallback. Never touches your list:
    localStorage / IndexedDB aren't involved, and non-GET and cross-origin requests are left alone.
    BUMP VERSION ON EVERY RELEASE so old cached files are dropped. */
-const VERSION = 'wishlist-v1.5-20261016';
-const SHELL = ['./', 'index.html', 'manifest.json', 'favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'mb-suite-topbar.css', 'mb-sync.js', 'mb-files.js', 'vendor/supabase.js'];
+const VERSION = 'wishlist-v1.7-20261017-ui101';
+const SHELL = ['./', 'index.html', 'manifest.json', 'favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'mb-suite-topbar.css', 'mb-sync.js', 'mb-files.js', 'mb-ui.js', 'vendor/supabase.js'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

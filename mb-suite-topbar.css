@@ -1,9 +1,19 @@
 /* =====================================================================
-   mb-suite-topbar.css v3.3.0  ·  2026-10-16  ·  SHARED FILE: copy into every app UNCHANGED, load LAST
+   mb-suite-topbar.css v3.5.0  ·  2026-10-17  ·  SHARED FILE: copy into every app UNCHANGED, load LAST
    (after every other stylesheet / <style> block). Apps whose CSP has no style-src 'self' inline it as the
    last <style> block, byte-for-byte. If you edit it, raise the version on this line and in
    "SHARED FILES/SHARED-FILES-VERSIONS.md", then copy it into every app.
 
+   v3.5.0 (2026-10-17, later) adds:
+     · keyboard-shortcut hints (<kbd>) hidden on touch-only devices (the Data menu showed Ctrl+S on phones)
+     · Settings page column: left-aligned, max 780px, in every app (.mb-set)
+   v3.4.0 (2026-10-17) adds:
+     · welcome banner (.cu-banner) one height everywhere: 128px desktop, 148px phones; greeting 1 line, title and
+       subtitle up to 2 lines each; the art fades in from the left instead of ending in a hard edge, and on phones it
+       spans the banner (showing the whole picture) and fades out under the text
+     · .bnav .bn-add  center "Add" button in the phone bottom bar (icon only, aria-label "Add …")
+     · .mb-pair buttons center their icon + label
+     · Settings row labels (.mb-set-l) wrap long names instead of widening the page
    v3.3.0 (2026-10-16) adds, on top of the v3.2.2 top bar:
      · every bar control is one height: the theme switch fills the bar height (36px desktop, 42px phones;
        it was a 28px pill next to 36/42px buttons), the account button is a normal .tb
@@ -424,9 +434,36 @@ textarea.resize,textarea.resize-x{resize:vertical}
 .mb-info svg{width:15px;height:15px;flex:none;color:var(--muted,#6b7280)}
 /* Two actions side by side on a phone share the row 50/50 (no lopsided pairs). */
 .mb-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
-.mb-pair > *{width:100%;min-width:0}
+.mb-pair > *{width:100%;min-width:0;justify-content:center;text-align:center}
 /* Nothing in the welcome screen runs off the edge on narrow phones. */
 .mbw-alt .mbw-btn,.mbw-foot .mbw-btn{max-width:100%}
 .mbw-alt .mbw-btn{white-space:normal;text-align:left;line-height:1.25;min-height:40px}
 @media (max-width:420px){ .mbw-alt .mbw-btn{flex:1 1 100%;justify-content:flex-start} }
 .mbw-body{overflow-wrap:anywhere}
+
+/* ---------- v3.4.0 · welcome banner: one height, soft art edge, phone composition ---------- */
+.cu-banner:not(.slim){box-sizing:border-box;height:128px;min-height:0;overflow:hidden;display:flex;align-items:center}
+.cu-banner:not(.slim) .cu-txt{min-width:0}
+.cu-banner .mb-greet{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cu-banner .cu-t,.cu-banner .cu-s{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.cu-banner .cu-art:not(.at-bottom):not(.at-top):not(.inline){-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 45%);mask-image:linear-gradient(90deg,transparent 0,#000 45%)}
+@media (max-width:600px){
+  .cu-banner:not(.slim){height:148px;padding:16px}
+  .cu-banner:not(.slim) .cu-txt{max-width:58%}
+  .cu-banner .cu-art:not(.at-bottom):not(.at-top):not(.inline){left:0;right:0;width:100%;max-width:none;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,transparent 38%,rgba(0,0,0,.5) 58%,#000 80%);mask-image:linear-gradient(90deg,transparent 0,transparent 38%,rgba(0,0,0,.5) 58%,#000 80%)}
+}
+
+/* ---------- v3.4.0 · center Add button in the phone bottom bar ---------- */
+.bnav .bn-add{align-self:center;justify-self:center;display:inline-flex!important;align-items:center;justify-content:center;width:52px;height:44px;min-height:44px!important;padding:0!important;gap:0!important;
+  border:0;border-radius:var(--r,6px)!important;background:var(--g-pri,var(--accent))!important;color:var(--accent-ink,#fff)!important;box-shadow:0 2px 8px rgba(16,24,40,.18);cursor:pointer}
+.bnav .bn-add svg{width:24px!important;height:24px!important}
+.bnav .bn-add:hover{filter:brightness(1.05)}
+.bnav .bn-add:active{filter:brightness(.94)}
+.bnav .bn-add:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bnav .bn-add > span:not(.sr-only){display:none}
+.mb-set-l,.mb-set-l b,.mb-set-l small{min-width:0;overflow-wrap:anywhere}   /* 3.4.0: long names in Settings rows wrap */
+
+/* ---------- v3.5.0 ---------- */
+@media (hover:none) and (pointer:coarse){ .page-bar kbd,.mb-dm kbd,.mb-dm-it kbd,.tb kbd{display:none!important} }
+.mb-set{max-width:780px;margin-left:0;margin-right:auto}
